@@ -1,0 +1,29 @@
+  ###Title : Schools Dropout
+ 
+Jye na mungenzI wanjye supervisor yatubwiye ko project dushaka gukor ihari kdi mu makuru naje ku menya yari ihari nubwo tutazi uburyo yakoraga.Gusa twabonye indi kdi dufite amakuru ko idahari kuko no muri leta twabajije twasanze idahari 
+
+Ni system izajya ifasha inzego zitandukanye kumenya uko abanyeshuri birukanwe mu bigo kdi igatanga raporo ku nzego zibishinzwe bagakuririkirana uwo munyashuri mu gihe yaba yataye ishuri.
+
+Muri rusanze ino project izajya ifasha ibi bikurikira:
+
+	1. Mu busanzwe mu rda iyo wirukanwe mwishuri  wakoze ikosa rikomeye(eg: wanyweye urumogi) ntago bimenyeshwa leta ako kanya kdi inshuro nyinshi abanyeshuri kubera amanyanga bagira nkiyo ibyo bibaye yihutira gushaka ikindi kigo kuko baba batazi icyatumwe yirukanwa aho yavuye kuko ikigo kitashobora kubona amakuru yuwo munyeshuri nicyo yakoze.Ino system izafasha guhanahana amakuru ku banyeshyuri birukanywe nicyo bakoze aho bavuye.
+
+	2. Ikindi kibazo gihari nicya  banyeshuri birukanwa kubera ikosa runaka ryabaye(ryavuzwe haruguru) bagahita bava mwishuri bakabura umuntu ubakurikina kuko leta ubyayo itabizi cg ikazabimenya umwana atagishaka kwiga cg se utanamubona.ino system izafasha kwihutisha amakuru kdi akagera ku bantu bose bireba mu gihe gito cyane nimba hari nicyakorwa kigakorwa byishuse.
+
+	3. Ikindi ino System izajya igeza amakuru ku bayobozo uhereye mu kurenge kugeza ku ntara bafite amakuru yabanyeshuri birukanwe bose na raporo yuko birukanwe nikosa bakoze kdi nabagarutse bakamenyekana nibyo bakoze bikaba bizwi nababishinzwe(bo mu karere nimirenge barimo).
+
+	4. Mu busanzw nta software yari izanzwe uhari ikori ino mirimo twavuze haruguru kdi murabizi muri vision 2020.U Rda rwiyemeje ko ibintu byose bigomba kuba biri digital cyane cyane mu nzego zibanze zituma amakuru agera kuri ba yiruyo mu buryo bunogeye kdi byihuse.
+
+	5. Ikindi nimba leta ifite amakuru yuko abana bava mwishuri bizayifasha mwigenamigambi mu mwaka iri mbere bakareba nimba ibyo biyemeje byaragezweh bashingiy ku makuru bafite.
+
+	6. Ikindi iyo System bitewe namakuru yatanzwe leta yamenya imbogamizi zikura abanyeshuri mwishuri ikaba yagerageza ifatashije namabyeyi bakazigabaya.
+
+Uretse ubu tubuze harugura muri ino project turashaka nka group yacu gushyira mu bukirwa ubumenyi twize muri software methodolody(Mu gihe twaba dufite umwanya uhagije):
+
+   	-Gukoresha git na github nka online system zidufasha muri bufatanye(collaboration) twize muri agile software development   
+   	- Gukoresha pivotal tracker nayo ifasha muri collaboration kdi ntago yigeze ikoreshwa mbere muri project twabony itumba kdi yafasha nabanyeshuri bagenz bacu kuyigiraho imikorere yabo.
+   	- gukoresha Git WorkFlow .Bumwe mu buryo bukoreshwa nabakora software kwisi hose kdi bukunzwe cyne. 
+
+N.B: twasobanuye mu kinyarwanda kugira ngi byumvikane neza kdi binoze.
+     
+     Murakoze!
