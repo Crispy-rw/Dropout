@@ -2,7 +2,7 @@
 session_start();
 include "connect.php";
  
-				$sq=mysql_query($s = "SELECT droped.*,students.*,depts.deptacronym, classes.year, classes.letter, classes.class_id,villages.villagename,cells.cellname,sector.sector_name,districts.district_name 
+				$sq=mysql_query($s = "SELECT schools.*, droped.*,students.*,depts.deptacronym, classes.year, classes.letter, classes.class_id,villages.villagename,cells.cellname,sector.sector_name,districts.district_name 
 								FROM droped, students, villages, cells,sector,districts, classes, depts, schools WHERE 
 								droped.student_id=students.student_id && 
 								students.village_id=villages.village_id && 
@@ -11,7 +11,6 @@ include "connect.php";
 								students.class_id = classes.class_id &&
 								classes.dept_id = depts.dept_id &&
 								depts.school_id = schools.school_id &&
-								schools.user_id = '{$_SESSION['user_id']}' &&
 								droped.status = 1 &&
 								sector.district_id=districts.district_id")or die(mysql_error());
 				$students = array();
@@ -24,8 +23,7 @@ include "connect.php";
 								 `schools`.`village_id`=`villages`.`village_id` && 
 								 `villages`.`cell_id`=`cells`.`cell_id` && 
 								 `cells`.`sector_id`=`sector`.`sector_id` && 
-								 `sector`.`district_id`=`districts`.`district_id` && 
-								 `schools`.`school_id`='{$_SESSION['school_id']}' ";
+								 `sector`.`district_id`=`districts`.`district_id`";
 								 //echo $school_query;
 				$school = mysql_query($school_query);
 				$sc = mysql_fetch_assoc($school);
@@ -45,14 +43,22 @@ Cell:{$sc['cellname']}<br />
 Village:{$sc['villagename']}<br /><br />
 <div style='text-align:center; text-decoration:underline;'>Students who drop school in {$year}</div><br /><table border=1 style='border-collapse:collapse' width=100% cellspacing=0>";
 	
-	$count = 0;
+	$count = 1;
 				for($i=0;$i<count($students);$i++){
+
+					if($i==0 || $students[$i]["school_id"] != @$students[($i-1)]["school_id"] ){
+						$tb .= "<tr><td colspan=10>". $students[$i]["school_name"] ."</td></tr><tr><th>No</th><th>Name</th><th>Surname</th><th>Father</th><th>Mother</th><th>Village</th><th>Cell</th><th>Sector</th><th>District</th><th>Date</th></tr>";
+						$count = 1;
+					}					
+
+
 					if($i==0 || $students[$i]["class_id"] != @$students[($i-1)]["class_id"] ){
 						$tb .= "<tr><td colspan=10>".($students[$i]['deptacronym']=="P"?"P":"S")."{$students[$i]['year']} ".($students[$i]['deptacronym']=="P6" || $students[$i]['deptacronym']=="OLC"?"":$students[$i]['deptacronym'])." {$students[$i]['letter']}</td></tr><tr><th>No</th><th>Name</th><th>Surname</th><th>Father</th><th>Mother</th><th>Village</th><th>Cell</th><th>Sector</th><th>District</th><th>Date</th></tr>";
-						$count = 0;
+						$count = 1;
 					}
+
 					$tb .= "<tr>";
-					$tb .= "<td>{$students[$i]['droped_id']}</td>";
+					$tb .= "<td>{$count}</td>";
 					$tb .= "<td>{$students[$i]['Fname']}</td>";
 					$tb .= "<td>{$students[$i]['Lname']}</td>";
 					$tb .= "<td>{$students[$i]['Father']}</td>";
@@ -63,6 +69,7 @@ Village:{$sc['villagename']}<br /><br />
 					$tb .= "<td>{$students[$i]['district_name']}</td>";
 					$tb .= "<td>{$students[$i]['date']}</td>";
 					$tb .= "</tr>";
+					$count++;
 				}
 				$tb .= "</table><br /><b>Total: ".count($students)." Student".(count($students)>1?"s":"")."</b><br /><br /><div style='width:300px; margin-right:5px; float:right;'>{$school_id['school_name']}<br /><br /><br /><br />Head Master<br />{$head_['Names']}</div>";
 

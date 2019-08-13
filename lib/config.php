@@ -1,6 +1,6 @@
 <?php
 class DBConnector{
-	function __construct($db="drop_out",$server="127.0.0.1",$user="root",$password=""){
+	function __construct($db="mine",$server="127.0.0.1",$user="root",$password=""){
 		$con = mysql_connect($server,$user,$password)or die("COULD NOT CONNECT!");
 		return mysql_select_db($db,$con)or die("MYSQL ERROR!");
 	}

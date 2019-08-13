@@ -2,7 +2,7 @@
 // Initialize the session
 session_start();
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["user_id"]) || $_SESSION["usertype"] != 'administrator'){
+if(!isset($_SESSION["user_id"]) || $_SESSION["usertype"] != 'rehab'){
     header("location:./logout.php");
     exit;
 }
@@ -73,9 +73,7 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["usertype"] != 'administrator'){
             <strong><?php echo date('D M-d-Y  h:m'); ?></strong>
             
           </h4></li>
-          <!-- Notifications: style can be found in dropdown.less -->
-          <!-- Tasks: style can be found in dropdown.less -->
-         
+          <!-- Notifications: style can be found in dropdown.less -->         
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -131,29 +129,22 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["usertype"] != 'administrator'){
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li>
-          <a href="dashboard.php">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          <a href="rehab_dashboard.php">
+            <i class="fa fa-dashboard"></i> <span> Dashboard</span>
           </a>
           
         </li>
         
-        
         <li >
-          <a href="new_schools.php">
-            <i class="fa fa-edit"></i> <span> Schools</span>
+          <a href="request.php">
+            <i class="fa fa-edit"></i> <span> Request </span>
           </a>
-        </li>
+        </li>        
 
+          
         <li >
-          <a href="new_rehab.php">
-            <i class="fa fa-edit"></i> <span> Rehabilitation</span>
-          </a>
-        </li>
-       
-    
-        <li>
-          <a href="new_seo.php">
-            <i class="fa fa-edit"></i> <span>Sector Education Officer</span>
+          <a href="view_rehab_student.php">
+            <i class="fa fa-edit"></i> <span> Students </span>
           </a>
         </li>
       
@@ -170,12 +161,12 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["usertype"] != 'administrator'){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
+        Headmaster Dashboard
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">  Dashboard</li>
       </ol>
     </section>
 

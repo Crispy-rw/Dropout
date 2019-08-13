@@ -13,16 +13,6 @@ $year_err = $school_name_err = $village_name_err =  "";
 
 
 
-//Delete Class
-if(@$_GET['act']=='delete_class' && is_numeric($_GET['id'])){
-  if(mysql_query("DELETE FROM classes where class_id='{$_GET['id']}'")){
-    $tbc="Class deleted !!!";
-  }else{
-    $tbc="Error while deleting !!!";
-  }
-}
-
-
 
 //save the school information
 
@@ -48,6 +38,43 @@ if(isset($_POST['save_school'])){
     echo "<br />Empty School Name!";
   }
 
+}
+
+
+if(isset($_POST['save_dir'])){
+
+
+  $name = $_POST['name'];
+  $phone = $_POST['phone'];
+  $id = $_POST['id'];
+  $user = $_POST['user'];
+  $pass = $_POST['pass'];
+  $sec_id = $_GET['dir'];
+
+
+  //save executive information
+  $sql = "INSERT into users VALUES(null,'{$user}','{$pass}','{$name}','{$phone}','{$id}','user')";
+
+  $res = mysql_query($sql) or die(mysql_errno());
+
+  $user_id = mysql_insert_id();
+
+  unset($res);
+
+  if(is_numeric($user_id)){
+
+    $update = "UPDATE schools SET user_id = '{$user_id}' WHERE school_id = {$sec_id}";
+    
+    $res = mysql_query($update) or die(mysql_error());
+
+    if ($res) {
+      
+      echo "Headmaster has been set";
+
+    }
+
+
+  }
 
 
 }
@@ -79,13 +106,6 @@ if(isset($_POST['save_school'])){
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="./dist/css/skins/_all-skins.min.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -112,33 +132,6 @@ if(isset($_POST['save_school'])){
           <!-- Messages: style can be found in dropdown.less-->
           
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
           <!-- Tasks: style can be found in dropdown.less -->
          
           <!-- User Account: style can be found in dropdown.less -->
@@ -154,7 +147,6 @@ if(isset($_POST['save_school'])){
 
                 <p>
                   <?php echo $_SESSION['username'] ?> - <?php echo $_SESSION['usertype'] ?>
-                  <small><?php echo $info['school_name'] ?></small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -186,7 +178,7 @@ if(isset($_POST['save_school'])){
           <img src="./dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $info['school_name'] ?></p>
+          <p><?php echo $_SESSION['username'] ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -204,178 +196,24 @@ if(isset($_POST['save_school'])){
         </li>
         
         
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Entry Data</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li >
+          <a href="new_schools.php">
+            <i class="fa fa-edit"></i> <span> Schools</span>
           </a>
-          <ul class="treeview-menu">
-           <li><a href="department.php"><i class="fa fa-circle-o"></i> Department</a></li>
-            <li><a href="lecture.php"><i class="fa fa-users"></i> Lecture </a></li>
-            <li><a href="course.php"><i class="fa fa-file"></i> Course </a></li>
-            <li><a href="room.php"><i class="fa fa-university"></i> Room </a></li>
-            <li><a href="level.php"><i class="fa fa-cubes"></i> Level </a></li>
-            <li><a href="time.php"><i class="fa fa-calendar-check-o"></i> Time </a></li>
-            <li><a href="class.php"><i class="fa fa-building"></i> Class </a></li>
-          </ul>
         </li>
        
     
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Time Table</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li >
+          <a href="new_rehab.php">
+            <i class="fa fa-edit"></i> <span> Rehabilitation</span>
           </a>
-          <ul class="treeview-menu">
-            <!-- IT -->
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-yellow"></i> Information Technology
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 1 IT
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 1 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 1 IT-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 2 IT
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-C</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-D</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 3 IT 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 3 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 3 IT-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- ET -->
-
-               <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-aqua"></i> Electronic Telecom
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 1 ET
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 1 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 1 ET-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 2 ET
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-C</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 3 ET 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 3 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 3 ET-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- RE -->
-
-              <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-red"></i> Renewable Energy
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 1 RE
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 1 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 1 RE-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 2 RE
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-C</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 3 RE 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 3 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 3 RE-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            
-          </ul>
+        </li>
+       
+    
+        <li>
+          <a href="new_seo.php">
+            <i class="fa fa-edit"></i> <span>Sector Education Officer</span>
+          </a>
         </li>
       
         <li class="header">Setting</li>
@@ -449,14 +287,19 @@ if(isset($_POST['save_school'])){
                 <td><?php echo $row['school_id'];?></td>
                 <td><?php echo $row['school_name'];?></td>
                 <td><?php echo $row['district_name']."-".$row['sector_name'];?></td>
-                <td><?php echo $row['Usertype'] == "administrator"?"<a href='./1.php?act=set_dir&school={$row['school_id']}'>set director</a>":$row['names'];?></td>
-
+                <td>
+                  <?php echo $row['Usertype'] == "administrator"?"<a class='btn btn-success btn-sm' data-toggle='modal' href='#edit_{$row['school_id']}'>Set Director</a>":$row['names'];?>
+                    
+                  </td>
                   <?php $num = mysql_num_rows($query); ?>
                 <td><?php if($num>0){ ?><a target="_blank" href='print_1.php?school_id=<?php echo $row['school_id'] ?>&user_id=<?php echo $row['user_id'] ?>'><?php echo $num; echo " student".($num>1?"s":"") ?></a><?php } else{ echo "None";} ?></td>
 
-                <td><a onclick='if(confirm("Do you Really Want to delete <?php echo $row['school_name'] ?>?")){return true} else{return false}' href="./schools.php?act=delete&id=<?php echo $row['school_id'] ?>">Delete</a></td>
+                <td>
+                  
+                  <a class="btn btn-danger btn-sm" data-toggle="modal" href="#delete_<?php echo $row['school_id']; ?>"  > Delete </a>
 
-                <td><a href="./schools.php?act=update&id=<?php echo $row['school_id']; ?>">Update</a></td>
+                </td>
+                <?php include('./add_director.php'); ?>
           </tr>
               <?php
                   }

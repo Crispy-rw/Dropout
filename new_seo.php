@@ -109,34 +109,6 @@ if(isset($_POST['save_seo'])){
           <!-- Messages: style can be found in dropdown.less-->
           
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <!-- Tasks: style can be found in dropdown.less -->
          
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -151,7 +123,6 @@ if(isset($_POST['save_seo'])){
 
                 <p>
                   <?php echo $_SESSION['username'] ?> - <?php echo $_SESSION['usertype'] ?>
-                  <small><?php echo $info['school_name'] ?></small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -183,7 +154,7 @@ if(isset($_POST['save_seo'])){
           <img src="./dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $info['school_name'] ?></p>
+          <p><?php echo $_SESSION['username'] ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -200,180 +171,27 @@ if(isset($_POST['save_seo'])){
           
         </li>
         
-        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Entry Data</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li >
+          <a href="new_schools.php">
+            <i class="fa fa-edit"></i> <span> Schools</span>
           </a>
-          <ul class="treeview-menu">
-           <li><a href="department.php"><i class="fa fa-circle-o"></i> Department</a></li>
-            <li><a href="lecture.php"><i class="fa fa-users"></i> Lecture </a></li>
-            <li><a href="course.php"><i class="fa fa-file"></i> Course </a></li>
-            <li><a href="room.php"><i class="fa fa-university"></i> Room </a></li>
-            <li><a href="level.php"><i class="fa fa-cubes"></i> Level </a></li>
-            <li><a href="time.php"><i class="fa fa-calendar-check-o"></i> Time </a></li>
-            <li><a href="class.php"><i class="fa fa-building"></i> Class </a></li>
-          </ul>
         </li>
        
     
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Time Table</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li >
+          <a href="new_rehab.php">
+            <i class="fa fa-edit"></i> <span> Rehabilitation</span>
           </a>
-          <ul class="treeview-menu">
-            <!-- IT -->
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-yellow"></i> Information Technology
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 1 IT
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 1 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 1 IT-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 2 IT
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-C</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-D</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 3 IT 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 3 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 3 IT-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- ET -->
-
-               <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-aqua"></i> Electronic Telecom
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 1 ET
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 1 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 1 ET-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 2 ET
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-C</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 3 ET 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 3 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 3 ET-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- RE -->
-
-              <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-red"></i> Renewable Energy
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 1 RE
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 1 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 1 RE-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 2 RE
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-C</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 3 RE 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 3 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 3 RE-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            
-          </ul>
         </li>
+       
+    
+        <li>
+          <a href="new_seo.php">
+            <i class="fa fa-edit"></i> <span>Sector Education Officer</span>
+          </a>
+        </li>       
+    
+
       
         <li class="header">Setting</li>
         <li><a href="#"><i class="fa fa-cogs text-red"></i> <span>Account Setting</span></a></li>
@@ -405,7 +223,7 @@ if(isset($_POST['save_seo'])){
 
         <div class="box">
             <div class="box-header">
-              <h3 class="box-title">School Features </h3>
+              <h3 class="box-title">Sector Education Officer Features </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -456,80 +274,6 @@ if(isset($_POST['save_seo'])){
               </table>
              
             </div>
-
-            <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add school </h4>
-              </div>
-              <div class="modal-body">
-                
-                <form class="form-horizontal" action="" method="POST">
-              <div class="box-body">
-
-                <div class="form-group">
-                  <label for="departments" class="col-sm-3 control-label"> Village Name </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($village_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="cell_id" class="form-control" >
-                      <option value=""> - </option>
-                      <?php
-
-
-                        $query = "select cells.cellname, villages.village_id, villages.villagename from villages, cells, sector WHERE cells.cell_id=villages.village_id && sector.sector_id=cells.sector_id order by cells.cellname asc; ";
-                        #echo $query;
-                        $cells = mysql_query($query);
-                        if($cells && mysql_num_rows($cells)>0){
-                             #var_dump($cells);
-                           while($cell = mysql_fetch_assoc($cells)){
-                             #var_dump($cell);
-                              echo "<option value='{$cell['village_id']}'>".$cell['villagename']."(".$cell['cellname'].")</option>";
-                         }
-                        }                       
-
-                     ?>
-                    </select>
-                    <span class="help-block"><?php echo $village_name_err; ?></span>
-                  </div>
-                </div> 
-
-                <div class="form-group ">
-                  <label for="school_name" class="col-sm-3 control-label"> School name </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($school_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" class="form-control" name="school_name">
-                    <span class="help-block"><?php echo $school_name_err; ?></span>
-                  </div>
-              </div>
-
-                
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                <button type="submit" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-                <button type="submit" name="save_school" class="btn btn-info pull-right">Save</button>
-              </div>
-              <!-- /.box-footer -->
-            </form>
-
-
-              </div>
-              
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-        <!-- edit modal -->
-
-
-
-
-
-      </div>
       
 
     </section>

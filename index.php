@@ -19,13 +19,12 @@ if (isset($_POST['login'])) {
 		$_SESSION['user_id']=$row['user_id'];
 		if ($row['Usertype']=='administrator') {
 			header("location:./dashboard.php");
-		}
-		elseif ($row['Usertype']=='user') {
+		}elseif ($row['Usertype']=='user') {
 			header("location:./dashboard2.php");
 		}elseif ($row['Usertype']=='executive'){
 			header("location:3.php");
 		}elseif ($row['Usertype'] == 'rehab') {
-      header("location:view_rehab_student.php");
+      header("location:rehab_dashboard.php");
     }
 	}
 	else{

@@ -212,181 +212,26 @@ if(mysql_num_rows($check) == 0 ){
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
           
-        </li>
-        
-        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Entry Data</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        </li>   
+    
+        <li >
+          <a href="new_schools.php">
+            <i class="fa fa-edit"></i> <span> Schools</span>
           </a>
-          <ul class="treeview-menu">
-           <li><a href="department.php"><i class="fa fa-circle-o"></i> Department</a></li>
-            <li><a href="lecture.php"><i class="fa fa-users"></i> Lecture </a></li>
-            <li><a href="course.php"><i class="fa fa-file"></i> Course </a></li>
-            <li><a href="room.php"><i class="fa fa-university"></i> Room </a></li>
-            <li><a href="level.php"><i class="fa fa-cubes"></i> Level </a></li>
-            <li><a href="time.php"><i class="fa fa-calendar-check-o"></i> Time </a></li>
-            <li><a href="class.php"><i class="fa fa-building"></i> Class </a></li>
-          </ul>
         </li>
        
     
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Time Table</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li >
+          <a href="new_rehab.php">
+            <i class="fa fa-edit"></i> <span> Rehabilitation</span>
           </a>
-          <ul class="treeview-menu">
-            <!-- IT -->
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-yellow"></i> Information Technology
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 1 IT
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 1 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 1 IT-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 2 IT
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-C</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-D</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 3 IT 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 3 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 3 IT-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- ET -->
-
-               <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-aqua"></i> Electronic Telecom
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 1 ET
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 1 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 1 ET-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 2 ET
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-C</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 3 ET 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 3 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 3 ET-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- RE -->
-
-              <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-red"></i> Renewable Energy
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 1 RE
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 1 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 1 RE-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 2 RE
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-C</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 3 RE 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 3 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 3 RE-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            
-          </ul>
+        </li>
+       
+    
+        <li>
+          <a href="new_seo.php">
+            <i class="fa fa-edit"></i> <span>Sector Education Officer</span>
+          </a>
         </li>
       
         <li class="header">Setting</li>

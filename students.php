@@ -131,37 +131,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-         
+                   
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -217,186 +187,30 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview">
-          <a href="dashboard.php">
+        <li>
+          <a href="dashboard2.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
           
         </li>
         
-        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Entry Data</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li >
+          <a href="option.php">
+            <i class="fa fa-edit"></i> <span> Options </span>
           </a>
-          <ul class="treeview-menu">
-           <li><a href="department.php"><i class="fa fa-circle-o"></i> Department</a></li>
-            <li><a href="lecture.php"><i class="fa fa-users"></i> Lecture </a></li>
-            <li><a href="course.php"><i class="fa fa-file"></i> Course </a></li>
-            <li><a href="room.php"><i class="fa fa-university"></i> Room </a></li>
-            <li><a href="level.php"><i class="fa fa-cubes"></i> Level </a></li>
-            <li><a href="time.php"><i class="fa fa-calendar-check-o"></i> Time </a></li>
-            <li><a href="class.php"><i class="fa fa-building"></i> Class </a></li>
-          </ul>
+        </li>        
+
+          
+        <li >
+          <a href="class.php">
+            <i class="fa fa-edit"></i> <span> Classes </span>
+          </a>
         </li>
-       
-    
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Time Table</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+
+        <li >
+          <a href="students.php">
+            <i class="fa fa-edit"></i> <span> Students </span>
           </a>
-          <ul class="treeview-menu">
-            <!-- IT -->
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-yellow"></i> Information Technology
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 1 IT
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 1 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 1 IT-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 2 IT
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-C</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 2 IT-D</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-yellow"></i> Level 3 IT 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 3 IT-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> 3 IT-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- ET -->
-
-               <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-aqua"></i> Electronic Telecom
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 1 ET
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 1 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 1 ET-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 2 ET
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 2 ET-C</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-aqua"></i> Level 3 ET 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 3 ET-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> 3 ET-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- RE -->
-
-              <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o text-red"></i> Renewable Energy
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 1 RE
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 1 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 1 RE-B</a></li>
-                  </ul>
-                </li>
-                <!-- ET -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 2 RE
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-B</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 2 RE-C</a></li>
-                  </ul>
-                </li>
-                <!-- RE -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o text-red"></i> Level 3 RE 
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 3 RE-A</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> 3 RE-B</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            
-          </ul>
         </li>
       
         <li class="header">Setting</li>
@@ -550,24 +364,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                     <span class="help-block"><?php echo $gender_err; ?></span>
                   </div>
                 </div>                
-
-
-                <div class="form-group">
-                  <label for="departments" class="col-sm-3 control-label"> Province Name </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($province_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="province" class="form-control" >
-                      <option value=""> - </option>
-                      <?php
-                       $pro=mysql_query("select * from provinces ");
-                       while($res1=mysql_fetch_assoc($pro)){
-                          echo "<option value='{$res1['province_id']}'>".$res1['name']."</option>";
-                       }
-                     ?>
-                    </select>
-                    <span class="help-block"><?php echo $province_name_err; ?></span>
-                  </div>
-                </div> 
+ 
 
                 <div class="form-group">
                   <label for="district" class="col-sm-3 control-label"> District Name </label>
