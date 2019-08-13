@@ -18,10 +18,10 @@ if (isset($_POST['login'])) {
 		$_SESSION['usertype']=$row['Usertype'];
 		$_SESSION['user_id']=$row['user_id'];
 		if ($row['Usertype']=='administrator') {
-			header("location:1.php");
+			header("location:./dashboard.php");
 		}
 		elseif ($row['Usertype']=='user') {
-			header("location:2.php");
+			header("location:./dashboard2.php");
 		}elseif ($row['Usertype']=='executive'){
 			header("location:3.php");
 		}elseif ($row['Usertype'] == 'rehab') {
@@ -64,7 +64,7 @@ if (isset($_POST['login'])) {
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="index2.html"><b>Online School Dropout Management System </a>
+    <a href="index2.html"><b>Student Dropout Management System </a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
