@@ -18,10 +18,27 @@ $year_err = $sector_name_err = $rehab_name_err =  "";
 
 //save the school information
 
+if (isset($_POST['save_rehab'])) {
+
+  $add = mysql_query("INSERT rehab VALUES(null,'{$_POST['rehab']}','{$_POST['sector_id']}',1)");
+
+  if ($add) {
+
+    echo "Rehabilitation Added";
+
+  }else{
+
+    echo "Protocol Error";
+  }
+
+
+
+}
+
+
+
 if(isset($_POST['rehab_add'])){
   //check the village information
-
-
 
   $rehab_id = $_GET['rehab_id'];
   $name = $_POST['name'];
@@ -37,6 +54,7 @@ if(mysql_num_rows($check) == 0 ){
   $sql = "INSERT INTO users VALUES(null,'$user','$pass','$name','$phone','$id','rehab')"; 
 
   $res = mysql_query($sql) or die(mysql_error());
+
   $user_id = mysql_insert_id();
 
   // echo $user_id;

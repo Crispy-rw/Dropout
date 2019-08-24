@@ -293,12 +293,6 @@ if(isset($_POST['save_dir'])){
                   </td>
                   <?php $num = mysql_num_rows($query); ?>
                 <td><?php if($num>0){ ?><a target="_blank" href='print_1.php?school_id=<?php echo $row['school_id'] ?>&user_id=<?php echo $row['user_id'] ?>'><?php echo $num; echo " student".($num>1?"s":"") ?></a><?php } else{ echo "None";} ?></td>
-
-                <td>
-                  
-                  <a class="btn btn-danger btn-sm" data-toggle="modal" href="#delete_<?php echo $row['school_id']; ?>"  > Delete </a>
-
-                </td>
                 <?php include('./add_director.php'); ?>
           </tr>
               <?php

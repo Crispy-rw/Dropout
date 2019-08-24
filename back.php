@@ -12,7 +12,7 @@
 			</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                <a href="view_rehab_student.php?stid=<?php echo $row['transfer_id']; ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Yes</a>
+                <a href="view_rehab_student.php?tid=<?php echo $row['transfer_id']; ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Yes</a>
             </div>
 
         </div>

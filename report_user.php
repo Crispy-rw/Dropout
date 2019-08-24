@@ -8,90 +8,10 @@ if ($_SESSION['usertype']!='user') {
 }
  
 
- 
-//FInd school imformation
-$sql = "SELECT schools.* from schools where schools.user_id = '{$_SESSION['user_id']}' ";
-$res = mysql_query($sql) or die(mysql_error());
-$info = mysql_fetch_assoc($res);
-
-
- // Find school id and owner of the scholl
-    $sql=mysql_query($s = "select school_id from schools where user_id='{$_SESSION['user_id']}'")or die(mysql_error());
-    //echo $s;
-      if(mysql_num_rows($sql) == 1){
-        while($row=mysql_fetch_assoc($sql)){
-    // var_dump($row);
-          $_SESSION['school_id']=$row['school_id'];
-        }
-     } else{
-       echo "<script>alert('No School Information Found'); window.location='./logout.php'</script>";
-     }
-
-
-
-
 // Define variables and initialize with empty values
-$dept_id = $dept_name = $dept_head =  "";
-$option_code_err = $option_name_err = $dept_head_err =  "";
+$year_err = $school_name_err = $village_name_err =  "";
 
 
-
-if (isset($_POST['save_option'])) {
-
-  if (empty(trim($_POST['comb']))) {
-    $option_name_err = "Please option name should not be empty";
-  }
-
-  if (empty(trim($_POST['acro']))) {
-    $option_code_err = "Please option code should not be empty";
-  }
-
-
-  if (empty($option_code_err) && empty($option_name_err)) {
-
-
-
-    $comb=$_POST['comb'];
-    $acro=$_POST['acro'];
-
-    $sql1=mysql_query("select *from depts where deptname='$comb'&& school_id='{$_SESSION['school_id']}'");
-    if(mysql_num_rows($sql1)==0){
-    if(mysql_query("INSERT INTO depts values(null,'$comb','$acro','{$_SESSION['school_id']}')")){
-      $echo="New Department inserted !!!";
-    }
-    }else{
-      $echo="Department is already exists !!!";
-    }
-
-
-  }
-
-}
-
-
-
-// Update school department name and acronym
-if(isset($_POST['update'])){
-
-  $comb=$_POST['comb'];
-  $acro=$_POST['acro'];
-  $id=$_GET['option_id'];
-
-  if(empty($comb)or empty($acro)){
-    $echo="You have to fill all fields !!!";
-  }else{
-    $sql1=mysql_query("select * from depts where deptname='$comb' && school_id='{$_SESSION['school_id']}' && dept_id != '{$id}'");
-    if(mysql_num_rows($sql1)==0){
-      if(mysql_query("UPDATE depts SET deptname='$comb',deptacronym='$acro' WHERE dept_id='{$id}'") or die(mysql_error())){
-        $echo="Department Updated !!!";
-        echo "<script>alert('Department Updated')</script>";
-        unset($_GET);
-      }
-    }else{
-      $echo="Department is already exists !!!";
-    }
-  }
-}
 
 
 
@@ -119,13 +39,6 @@ if(isset($_POST['update'])){
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="./dist/css/skins/_all-skins.min.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -136,7 +49,7 @@ if(isset($_POST['update'])){
     <!-- Logo -->
     <a href="./dashboard.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>S<b>D</b></span>
+      <span class="logo-mini"><b>O</b>S<b>D</b><b>M</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>School Dropout </b> management System</b> </span>
     </a>
@@ -150,7 +63,10 @@ if(isset($_POST['update'])){
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-                   
+          
+          <!-- Notifications: style can be found in dropdown.less -->
+          <!-- Tasks: style can be found in dropdown.less -->
+         
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -163,7 +79,7 @@ if(isset($_POST['update'])){
                 <img src="./dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $_SESSION['username'] ?> - <?php echo $_SESSION['username'] ?>
+                  <?php echo $_SESSION['username'] ?> - <?php echo $_SESSION['usertype'] ?>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -195,7 +111,7 @@ if(isset($_POST['update'])){
           <img src="./dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $info['school_name'] ?></p>
+          <p><?php echo $_SESSION['username'] ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -206,13 +122,6 @@ if(isset($_POST['update'])){
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li>
-          <a href="dashboard2.php">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
-          
-        </li>
-              
-        <li >
           <a href="option.php">
             <i class="fa fa-edit"></i> <span> Options </span>
           </a>
@@ -230,7 +139,13 @@ if(isset($_POST['update'])){
             <i class="fa fa-edit"></i> <span> Students </span>
           </a>
         </li>
-      
+
+        <li >
+          <a href="report_user.php">
+            <i class="fa fa-edit"></i> <span> report </span>
+          </a>
+        </li>
+
         <li class="header">Setting</li>
         <li><a href="#"><i class="fa fa-cogs text-red"></i> <span>Account Setting</span></a></li>
        
@@ -244,12 +159,12 @@ if(isset($_POST['update'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Options
+        Sector Education Officer
   
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Options</li>
+        <li class="active">Report</li>
       </ol>
     </section>
 
@@ -261,99 +176,19 @@ if(isset($_POST['update'])){
 
         <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Department Features </h3>
-              <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">
-                <i class="fa fa-plus"> </i> Add Option
-              </button>
+              <h3 class="box-title">Report   Features </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Option Name</th>
-                  <th>Option Code</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                  <?php
-                       $data=mysql_query("SELECT * FROM depts where school_id IN (select school_id from schools where user_id='{$_SESSION['user_id']}')")or die(mysql_error());
-                       $depts = array();
-                         while($result=mysql_fetch_assoc($data))
-                           $depts[] = $result;
-
-                           $i = 1; 
-                          foreach ($depts as $row) 
-                          {
-                            ?>
-                            <tr>
-                              <td><?php echo $i; ?></td>
-                              <td><?php echo htmlentities($row['deptname']); ?></td>
-                              <td><?php echo htmlentities($row['deptacronym']); ?></td>
-                              
-                              <td>
-                                <a href="#edit_<?php echo $row['dept_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit "></span> Edit </a>
-                              </td>
-                             <?php include './edit_delete_modal.php';?>
-                            </tr>
-                            <?php 
-                            $i++;
-                          }
-                  
-                    ?>
-                </tbody>
-              </table>
-             
+            <a href="print_2.php">
+              <button class="btn btn-info">
+                Print report
+              </button>
+            </a>             
             </div>
 
             <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Department </h4>
-              </div>
-              <div class="modal-body">
-                
-                <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-              <div class="box-body">
-
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-3 control-label"> Combination Name </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($option_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="comb" class="form-control"  placeholder="Combination Name">
-                    <span class="help-block"><?php echo $option_name_err; ?></span>
-                  </div>
-                </div> 
-
-                <div class="form-group ">
-                  <label for="inputEmail3" class="col-sm-3 control-label"> Combination Code </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($option_code_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="acro" class="form-control"  placeholder="Combination Code">
-                    <span class="help-block"><?php echo $option_code_err; ?></span>
-                  </div>
-              </div>
-                
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                <button type="submit" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-                <button type="submit" name="save_option" class="btn btn-info pull-right">Save</button>
-              </div>
-              <!-- /.box-footer -->
-            </form>
-
-
-              </div>
-              
-            <!-- /.modal-content -->
-          </div>
           <!-- /.modal-dialog -->
         </div>
 

@@ -2,97 +2,82 @@
 // Initialize the session
 session_start();
 include "connect.php";
-if ($_SESSION['usertype']!='rehab') {
+if ($_SESSION['usertype']!='executive') {
   header("location:./logout.php");
   exit();
 }
  
 
-if(isset($_GET['tid'])){
-
-  $select = "UPDATE droped,transfer SET droped.status = 0 WHERE droped.droped_id = transfer.drop_id && transfer_id = {$_GET['tid']}";
-
-  $res1 = mysql_query($select) or die(mysql_error());
-
-  if($res1){
-
-      $res = mysql_query("UPDATE transfer SET status = 1 WHERE transfer_id = {$_GET['tid']}");
-
-      if($res){
-
-        echo "Student sent back to school";
-
-      }
-
-  }else{
-
-    echo "Protocol error";
-
-  }
-
-}
-
-
- 
-//FInd school imformation
-$sql = "SELECT * from rehab where rehab.userId = '{$_SESSION['user_id']}' ";
-$res = mysql_query($sql) or die(mysql_error());
-$info = mysql_fetch_assoc($res);
-
-
- // Find school id and owner of the scholl
-    $sql2=mysql_query($s = "select id from rehab where userId='{$_SESSION['user_id']}'")or die(mysql_error());
-    //echo $s;
-      if(mysql_num_rows($sql2) == 1){
-        while($row=mysql_fetch_assoc($sql2)){
-    // var_dump($row);
-          $_SESSION['rehab_id']=$row['id'];
-        }
-     } else{
-       echo "<script>alert('No Rehab Information Found'); window.location='./logout.php'</script>";
-     }
-
-
 // Define variables and initialize with empty values
-$year_err = $department_name_err = $letter_err =  "";
+$year_err = $school_name_err = $village_name_err =  "";
 
 
 
-//Delete Class
-if(@$_GET['act']=='delete_class' && is_numeric($_GET['id'])){
-  if(mysql_query("DELETE FROM classes where class_id='{$_GET['id']}'")){
-    $tbc="Class deleted !!!";
-  }else{
-    $tbc="Error while deleting !!!";
+//save the school information
+
+if(isset($_POST['save_school'])){
+  //check the village information
+
+  if(!empty($_POST['school_name'])){
+    
+    if(is_numeric($_POST['cell_id'])){
+      //save the school information
+      $check = mysql_query("SELECT * FROM schools WHERE school_name='".mysql_real_escape_string(trim($_POST['school_name']))."' && Village_id='{$_POST['cell_id']}'");
+      if(mysql_num_rows($check) == 0){
+        if(mysql_query("INSERT INTO schools SET school_name='".mysql_real_escape_string(trim($_POST['school_name']))."', Village_id='{$_POST['cell_id']}', user_id=1") or die(mysql_error())){
+          echo  "<br />School Successfully Registered!";
+          unset($_POST);
+        } else
+          echo " <br />Error While Saving School ";
+      } else{
+        echo " <br />School Name Already Exists ";
+      }
+    }
+  } else{
+    echo "<br />Empty School Name!";
   }
-}
-
-
-
-// Add Class
-
-if(isset($_POST['save_student'])){
-
-
-
-
-
-  $start=$_POST['start'];
-  $end=$_POST['end'];
-  $drop_id=$_GET['drop_id'];
-  // var_dump($_REQUEST); die;
-  
-    //seacrh dept for comparison
-  $dept_query = mysql_query("INSERT INTO transfer VALUES(null,'$drop_id','$start','$end','{$_SESSION['rehab_id']}',0)");
-
-  if($dept_query){
-   
-   echo "Student Reveived";
-
-  } 
-
 
 }
+
+
+if(isset($_POST['save_dir'])){
+
+
+  $name = $_POST['name'];
+  $phone = $_POST['phone'];
+  $id = $_POST['id'];
+  $user = $_POST['user'];
+  $pass = $_POST['pass'];
+  $sec_id = $_GET['dir'];
+
+
+  //save executive information
+  $sql = "INSERT into users VALUES(null,'{$user}','{$pass}','{$name}','{$phone}','{$id}','user')";
+
+  $res = mysql_query($sql) or die(mysql_errno());
+
+  $user_id = mysql_insert_id();
+
+  unset($res);
+
+  if(is_numeric($user_id)){
+
+    $update = "UPDATE schools SET user_id = '{$user_id}' WHERE school_id = {$sec_id}";
+    
+    $res = mysql_query($update) or die(mysql_error());
+
+    if ($res) {
+      
+      echo "Headmaster has been set";
+
+    }
+
+
+  }
+
+
+}
+
 
 
 
@@ -120,13 +105,6 @@ if(isset($_POST['save_student'])){
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="./dist/css/skins/_all-skins.min.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -151,6 +129,9 @@ if(isset($_POST['save_student'])){
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
+          
+          <!-- Notifications: style can be found in dropdown.less -->
+          <!-- Tasks: style can be found in dropdown.less -->
          
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -205,27 +186,13 @@ if(isset($_POST['save_student'])){
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-
-        <li>
-          <a href="rehab_dashboard.php">
-            <i class="fa fa-dashboard"></i> <span> Dashboard</span>
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="treeview">
+          <a href="executive_dash.php">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
           
         </li>
-        
-        <li >
-          <a href="request.php">
-            <i class="fa fa-edit"></i> <span> Request </span>
-          </a>
-        </li>        
-
-          
-        <li >
-          <a href="view_rehab_student.php">
-            <i class="fa fa-edit"></i> <span> Students </span>
-          </a>
-        </li>       
-    
       
         <li class="header">Setting</li>
         <li><a href="#"><i class="fa fa-cogs text-red"></i> <span>Account Setting</span></a></li>
@@ -240,12 +207,12 @@ if(isset($_POST['save_student'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Rehabilitation 
+        Sector Education Officer
   
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Rehabilitation</li>
+        <li class="active">Report</li>
       </ol>
     </section>
 
@@ -256,62 +223,17 @@ if(isset($_POST['save_student'])){
         <!-- Used DATA WE NEED  -->
 
         <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Report   Features </h3>
+            </div>
             <!-- /.box-header -->
             <div class="box-body">
               
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <td>Name</td>
-                  <td>Surname</td>
-                  <td>Father</td>
-                  <td>Mother</td>
-                  <td>Village</td>
-                  <td>Cell</td>
-                  <td>Sector</td>
-                  <td>District</td>
-                  <td> Start date</td>
-                  <td> End date</td>
-                  <td>Operation</td>
-                </tr>
-                </thead>
-                <tbody>
-                  <?php
-                       $drops = array();
-                       $sq=mysql_query($s ="SELECT `transfer`.*,`students`.*,villages.villagename,cells.cellname,sector.sector_name, districts.district_name FROM `transfer`,`droped`,`students`, `villages`, `cells`, `sector`, `districts` WHERE transfer.status = 0 && transfer.rehab_id = '{$_SESSION['rehab_id']}' && transfer.drop_id = droped.droped_id && droped.student_id = students.student_id && students.village_id = villages.village_id && villages.cell_id = cells.cell_id && cells.sector_id = sector.sector_id && sector.district_id = districts.district_id")or die(mysql_error());
-                          while($row=mysql_fetch_assoc($sq))
-                                $drops[] = $row;
-
-                           $i = 1; 
-                          foreach ($drops as $row) 
-                          {
-                            ?>
-                            <tr>
-                              <td><?php echo $i;?></td>
-                              <td><?php echo $row['Fname'];?></td>
-                              <td><?php echo $row['Lname'];?></td>
-                              <td><?php echo $row['Father'];?></td>
-                              <td><?php echo $row['Mother'];?></td>
-                              <td><?php echo $row['villagename'];?></td>
-                              <td><?php echo $row['cellname'];?></td>
-                              <td><?php echo $row['sector_name'];?></td>
-                              <td><?php echo $row['district_name'];?></td>
-                              <td><?php echo $row['start_date'];?></td>                              
-                              <td><?php echo $row['end_date'];?></td>                                                            
-                              <td><a href="#delete_<?php echo $row['transfer_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit "></span> Send Back to school </a></td>
-                              <?php
-                              include('./back.php');
-                              ?>
-                            </tr>
-                            <?php 
-                            $i++;
-                          }
-                  
-                    ?>
-                </tbody>
-              </table>
-             
+            <a href="print_all.php">
+              <button class="btn btn-info">
+                Print report
+              </button>
+            </a>             
             </div>
 
             <div class="modal fade" id="modal-default">
@@ -319,67 +241,53 @@ if(isset($_POST['save_student'])){
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Class </h4>
               </div>
               <div class="modal-body">
                 
-                <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <form class="form-horizontal" action="" method="POST">
               <div class="box-body">
 
                 <div class="form-group">
-                  <label for="departments" class="col-sm-3 control-label"> Department Name </label>
+                  <label for="departments" class="col-sm-3 control-label"> Village Name </label>
 
-                  <div class="col-sm-9 <?php echo (!empty($department_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="departments" class="form-control" >
+                  <div class="col-sm-9 <?php echo (!empty($village_name_err)) ? 'has-error' : ''; ?>">
+                    <select name="cell_id" class="form-control" >
                       <option value=""> - </option>
                       <?php
-                       $dept=mysql_query("select * from depts where school_id='{$_SESSION['school_id']}'");
-                       while($res=mysql_fetch_assoc($dept)){
-                          echo "<option value='{$res['dept_id']}'>".$res['deptacronym']."</option>";
-                          $_SESSION['dept_id']=$res['dept_id'];
-                       }
+
+
+                        $query = "select cells.cellname, villages.village_id, villages.villagename from villages, cells, sector WHERE cells.cell_id=villages.village_id && sector.sector_id=cells.sector_id order by cells.cellname asc; ";
+                        #echo $query;
+                        $cells = mysql_query($query);
+                        if($cells && mysql_num_rows($cells)>0){
+                             #var_dump($cells);
+                           while($cell = mysql_fetch_assoc($cells)){
+                             #var_dump($cell);
+                              echo "<option value='{$cell['village_id']}'>".$cell['villagename']."(".$cell['cellname'].")</option>";
+                         }
+                        }                       
+
                      ?>
                     </select>
-                    <span class="help-block"><?php echo $department_name_err; ?></span>
+                    <span class="help-block"><?php echo $village_name_err; ?></span>
                   </div>
                 </div> 
 
                 <div class="form-group ">
-                  <label for="year" class="col-sm-3 control-label"> Year </label>
+                  <label for="school_name" class="col-sm-3 control-label"> School name </label>
 
-                  <div class="col-sm-9 <?php echo (!empty($year_err)) ? 'has-error' : ''; ?>">
-                    <select name="year" class="form-control"  placeholder="Combination Code">
-                      <option value=""> - </option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                    </select>  
-                    <span class="help-block"><?php echo $year_err; ?></span>
+                  <div class="col-sm-9 <?php echo (!empty($school_name_err)) ? 'has-error' : ''; ?>">
+                    <input type="text" class="form-control" name="school_name">
+                    <span class="help-block"><?php echo $school_name_err; ?></span>
                   </div>
               </div>
-
-
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-3 control-label"> Letter (Ex:B) </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($letter_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="letter" class="form-control"  placeholder="Letter">
-                    <span class="help-block"><?php echo $letter_err; ?></span>
-                  </div>
-                </div>
-
-
 
                 
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-                <button type="submit" name="save_class" class="btn btn-info pull-right">Save</button>
+                <button type="submit" name="save_school" class="btn btn-info pull-right">Save</button>
               </div>
               <!-- /.box-footer -->
             </form>

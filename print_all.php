@@ -23,14 +23,15 @@ include "connect.php";
 								 `schools`.`village_id`=`villages`.`village_id` && 
 								 `villages`.`cell_id`=`cells`.`cell_id` && 
 								 `cells`.`sector_id`=`sector`.`sector_id` && 
-								 `sector`.`district_id`=`districts`.`district_id`";
+								 `sector`.`district_id`=`districts`.`district_id`&&
+								 `sector`.`user_id` = {$_SESSION['user_id']}";
 								 //echo $school_query;
 				$school = mysql_query($school_query);
 				$sc = mysql_fetch_assoc($school);
 				$year = date("Y",time());
 				//select information of school
-				$school_id_query = mysql_query("SELECT * FROM schools WHERE school_id='{$_SESSION['school_id']}'");
-				$school_id = mysql_fetch_assoc($school_id_query);
+				// $school_id_query = mysql_query("SELECT * FROM schools WHERE school_id='{$_SESSION['school_id']}'");
+				// $school_id = mysql_fetch_assoc($school_id_query);
 
 				//select head master
 				//var_dump($_SESSION);
@@ -71,7 +72,7 @@ Village:{$sc['villagename']}<br /><br />
 					$tb .= "</tr>";
 					$count++;
 				}
-				$tb .= "</table><br /><b>Total: ".count($students)." Student".(count($students)>1?"s":"")."</b><br /><br /><div style='width:300px; margin-right:5px; float:right;'>{$school_id['school_name']}<br /><br /><br /><br />Head Master<br />{$head_['Names']}</div>";
+				$tb .= "</table><br /><b>Total: ".count($students)." Student".(count($students)>1?"s":"")."</b><br /><br /><div style='width:300px; margin-right:5px; float:right;'><br /><br /><br /><br />SEO<br />{$_SESSION['username']}</div>";
 
 echo $tb;
 

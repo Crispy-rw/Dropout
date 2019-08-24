@@ -285,7 +285,26 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                               <td><?php echo 'S'.$row['year'].' '.$row['deptacronym'];?></td>
                               <td><?php echo htmlentities($row['Father']); ?></td>                              
                               <td><?php echo htmlentities($row['Mother']); ?></td>                              
-                              <td><a href="#delete_<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Drop </a></td>                              
+                              <td>
+
+                                <?php 
+                                $st = mysql_query("SELECT * FROM droped where student_id = {$row['student_id']} && status = 1");
+
+                                if(mysql_num_rows($st) > 0){
+                                  ?>
+                                   <a class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Droped </a>
+                                  <?php
+                                }else{
+
+                                ?>
+                                <a href="#delete_<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Drop </a>
+
+                                <?php
+                                }
+                                ?>
+
+
+                              </td>                              
                               <?php include("./drop.php") ?>
                             </tr>
                             <?php 
@@ -370,7 +389,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="district" class="col-sm-3 control-label"> District Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($district_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="district" class="form-control" >
+                    <select name="district" id="district" class="form-control" >
                       <option value=""> - </option>
                       <?php
                        $dis=mysql_query("select * from districts ");
@@ -388,14 +407,8 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="sector" class="col-sm-3 control-label"> Sector Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($sector_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="sector" class="form-control" >
+                    <select name="sector" id="sector" class="form-control" >
                       <option value=""> - </option>
-                      <?php
-                       $sec=mysql_query("select * from sector ");
-                       while($res3=mysql_fetch_assoc($sec)){
-                          echo "<option value='{$res3['sector_id']}'>".$res3['sector_name']."</option>";
-                       }
-                     ?>
                     </select>
                     <span class="help-block"><?php echo $sector_name_err; ?></span>
                   </div>
@@ -406,14 +419,8 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="cell" class="col-sm-3 control-label"> Cell Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($cell_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="cell" class="form-control" >
+                    <select name="cell" id="cell" class="form-control" >
                       <option value=""> - </option>
-                      <?php
-                       $cell=mysql_query("select * from cells ");
-                       while($res4=mysql_fetch_assoc($cell)){
-                          echo "<option value='{$res4['cell_id']}'>".$res4['cellname']."</option>";
-                       }
-                     ?>
                     </select>
                     <span class="help-block"><?php echo $cell_name_err; ?></span>
                   </div>
@@ -424,14 +431,8 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="village" class="col-sm-3 control-label"> Village Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($village_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="village" class="form-control" >
+                    <select name="village" id="village" class="form-control" >
                       <option value=""> - </option>
-                      <?php
-                       $vil=mysql_query("select * from villages ");
-                       while($res5=mysql_fetch_assoc($vil)){
-                          echo "<option value='{$res5['village_id']}'>".$res5['villagename']."</option>";
-                       }
-                     ?>
                     </select>
                     <span class="help-block"><?php echo $village_name_err; ?></span>
                   </div>
@@ -548,9 +549,78 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : false
+      'autoWidth'   : true
     })
   })
+
+
+
+
+  $(document).ready(function(){
+
+    $("#district").change(function(){
+
+      //get id of a district
+
+      var id = $(this).val();
+      var dataString = 'id=' + id;
+
+      $.ajax({
+        type: 'POST',
+        url: 'sectors.php',
+        data: dataString,
+        cashe: false,
+        success: function(html){
+          console.log(html);
+          $("#sector").html(html);
+        }
+      });
+    });
+
+
+    $("#sector").change(function(){
+
+      //get id of a sector
+
+      var id = $(this).val();
+      var dataString = 'id=' + id;
+
+      $.ajax({
+        type: 'POST',
+        url: 'cells.php',
+        data: dataString,
+        cashe: false,
+        success: function(html){
+          console.log(html);
+          $("#cell").append(html);
+        }
+      });
+    });
+
+
+
+    $("#cell").change(function(){
+
+      //get id of a cell
+
+      var id = $(this).val();
+      var dataString = 'id=' + id;
+
+      $.ajax({
+        type: 'POST',
+        url: 'villages.php',
+        data: dataString,
+        cashe: false,
+        success: function(html){
+          console.log(html);
+          $("#village").append(html);
+        }
+      });
+    });
+
+
+
+  });
 </script>
 </body>
 </html>
