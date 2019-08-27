@@ -29,7 +29,7 @@ $info = mysql_fetch_assoc($res);
 
 
 // Define variables and initialize with empty values
-$year_err = $class_err = $f_name_err = $l_name_err = $gender_err = $province_name_err = $district_name_err = $sector_name_err = $cell_name_err = $village_name_err = $father_err = $mother_err = $department_name_err = $letter_err =  "";
+$year_err = $ubudehe_err = $class_err = $f_name_err = $l_name_err = $gender_err = $province_name_err = $district_name_err = $sector_name_err = $cell_name_err = $village_name_err = $father_err = $mother_err = $department_name_err = $letter_err =  "";
 
 
 
@@ -48,11 +48,12 @@ if(isset($_POST['student'])){
   $Mother=ucfirst($_POST['mother']);
   $Mc=$_POST['mother_contact'];
   $Village_id=$_POST['village'];
+  $ubudehe = $_POST['ubudehe'];
 
 
   $check=mysql_query("SELECT *from students where Fname='$Name' && Lname='$Surname' && Father='$Father' && Mother='$Mother'");
   if(mysql_num_rows($check) != 1){
-    mysql_query("INSERT INTO students values(null,'$Name','$Surname','$Gender','$Father','$Fc','$Mother','$Mc','$Village_id','{$_POST['class']}')")or die(mysql_error());#,'7{$_FILES['upload']['name']}')");
+    mysql_query("INSERT INTO students values(null,'$Name','$Surname','$Gender','$Father','$Fc','$Mother','$Mc','$ubudehe','$Village_id','{$_POST['class']}')")or die(mysql_error());#,'7{$_FILES['upload']['name']}')");
     #move_uploaded_file($_FILES['upload']['tmp_name'],"c:\\xampp\\htdocs\\Pro\\Profile\\".$_FILES['upload']['name']);
     $echo="New student inserted !!!";
   }else{
@@ -263,6 +264,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <th>Father</th>
                   <th>Mother</th>
                   <th>Action</th>
+                  <th>Operation</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -287,6 +289,10 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                               <td><?php echo htmlentities($row['Mother']); ?></td>                              
                               <td>
 
+                                <a href="#edit_<?php echo $row['student_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit"></span> Edit </a>
+                                <a href="students.php?act=del_st&id=<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-edit"></span> Delete </a>
+                                <td>
+
                                 <?php 
                                 $st = mysql_query("SELECT * FROM droped where student_id = {$row['student_id']} && status = 1");
 
@@ -297,7 +303,8 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                                 }else{
 
                                 ?>
-                                <a href="#delete_<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Drop </a>
+                                  <a href="#delete_<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Drop </a>
+                                  </td>
 
                                 <?php
                                 }
@@ -317,7 +324,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
              
             </div>
 
-            <div class="modal fade" id="modal-default">
+        <div class="modal fade" id="modal-default">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -334,7 +341,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="class" class="col-sm-3 control-label"> Class</label>
 
                   <div class="col-sm-9 <?php echo (!empty($class_err))?'has-error':''; ?> ">
-                     <select name="class" class="form-control">
+                     <select name="class" required class="form-control">
                         <?php
                             $data=mysql_query($dd  = "SELECT classes.*,depts.deptacronym FROM classes,depts,schools WHERE classes.dept_id=depts.dept_id && depts.school_id=Schools.school_id && schools.user_id='{$_SESSION['user_id']}'")or die(mysql_error());
                             //echo $dd;
@@ -356,7 +363,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="fname" class="col-sm-3 control-label"> First Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($f_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="fname" class="form-control"  placeholder="First Name">
+                    <input type="text" name="fname" required class="form-control"  placeholder="First Name">
                     <span class="help-block"><?php echo $f_name_err; ?></span>
                   </div>
                 </div>
@@ -365,7 +372,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="lname" class="col-sm-3 control-label"> Last Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($l_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="lname" class="form-control"  placeholder="Last Name">
+                    <input type="text" name="lname" required class="form-control"  placeholder="Last Name">
                     <span class="help-block"><?php echo $l_name_err; ?></span>
                   </div>
                 </div>
@@ -375,7 +382,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="gender" class="col-sm-3 control-label"> Gender </label>
 
                   <div class="col-sm-9 <?php echo (!empty($gender_err)) ? 'has-error' : ''; ?>">
-                    <select name="gender" class="form-control">
+                    <select name="gender" required class="form-control">
                       <option value="" > - </option>
                       <option value="male"> Male</option>
                       <option value="female"> Female </option>
@@ -389,7 +396,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="district" class="col-sm-3 control-label"> District Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($district_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="district" id="district" class="form-control" >
+                    <select name="district" required id="district" class="form-control" >
                       <option value=""> - </option>
                       <?php
                        $dis=mysql_query("select * from districts ");
@@ -407,7 +414,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="sector" class="col-sm-3 control-label"> Sector Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($sector_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="sector" id="sector" class="form-control" >
+                    <select name="sector" required id="sector" class="form-control" >
                       <option value=""> - </option>
                     </select>
                     <span class="help-block"><?php echo $sector_name_err; ?></span>
@@ -419,7 +426,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="cell" class="col-sm-3 control-label"> Cell Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($cell_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="cell" id="cell" class="form-control" >
+                    <select name="cell" required id="cell" class="form-control" >
                       <option value=""> - </option>
                     </select>
                     <span class="help-block"><?php echo $cell_name_err; ?></span>
@@ -431,7 +438,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="village" class="col-sm-3 control-label"> Village Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($village_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="village" id="village" class="form-control" >
+                    <select name="village"  required id="village" class="form-control" >
                       <option value=""> - </option>
                     </select>
                     <span class="help-block"><?php echo $village_name_err; ?></span>
@@ -442,7 +449,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="father" class="col-sm-3 control-label"> Father </label>
 
                   <div class="col-sm-9 <?php echo (!empty($father_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="father" class="form-control"  placeholder="father">
+                    <input type="text" name="father" required class="form-control"  placeholder="father">
                     <span class="help-block"><?php echo $father_err; ?></span>
                   </div>
                 </div>
@@ -451,7 +458,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="father" class="col-sm-3 control-label"> Father Contact </label>
 
                   <div class="col-sm-9 <?php echo (!empty($f_contact_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="father_contact" class="form-control"  placeholder="father Contact">
+                    <input type="text" name="father_contact" required class="form-control"  placeholder="father Contact">
                     <span class="help-block"><?php echo $father_err; ?></span>
                   </div>
                 </div>
@@ -461,7 +468,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="mother" class="col-sm-3 control-label"> Mother </label>
 
                   <div class="col-sm-9 <?php echo (!empty($mother_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="mother" class="form-control"  placeholder="mother">
+                    <input type="text" name="mother" required class="form-control"  placeholder="mother">
                     <span class="help-block"><?php echo $mother_err; ?></span>
                   </div>
                 </div>
@@ -471,8 +478,23 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                   <label for="mother" class="col-sm-3 control-label"> Mother Contact </label>
 
                   <div class="col-sm-9 <?php echo (!empty($mother_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="mother_contact" class="form-control"  placeholder="mother">
+                    <input type="text" name="mother_contact" required class="form-control"  placeholder="mother">
                     <span class="help-block"><?php echo $mother_err; ?></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="ubudehe" class="col-sm-3 control-label"> UBUDEHE </label>
+
+                  <div class="col-sm-9 <?php echo (!empty($ubudehe_err)) ? 'has-error' : ''; ?>">
+                    <select  name="ubudehe" class="form-control"  required>
+                      <option> - </option>
+                       <option value="1"> 1 </option>
+                       <option value="2"> 2 </option>
+                       <option value="3"> 3 </option>
+                       <option value="4"> 4 </option>
+                    </select>
+                    <span class="help-block"><?php echo $ubudehe_err; ?></span>
                   </div>
                 </div>
 

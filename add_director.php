@@ -1,4 +1,5 @@
-<!-- Edit -->
+
+<!-- Set director -->
 <div class="modal fade" id="edit_<?php echo $row['school_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

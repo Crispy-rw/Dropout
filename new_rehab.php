@@ -13,7 +13,21 @@ $year_err = $sector_name_err = $rehab_name_err =  "";
 
 
 
-//Delete Class
+if(isset($_GET['act']) == 'delete_dir'){
+
+  $dir_id = $_GET['id'];
+
+  $dir_sql = "UPDATE rehab SET `userId` = '1' WHERE `id` = '{$dir_id}' ";
+
+  $update_dir = mysql_query($dir_sql) or die(mysql_error());
+
+  if ($update_dir) {
+    echo "Director Removed Successfully";
+  }else{
+    echo "Protocol Error";
+  }
+
+}
 
 
 //save the school information
@@ -316,9 +330,13 @@ if(mysql_num_rows($check) == 0 ){
                 <td><?php echo $i; ?></td>
                 <td><?php echo $row['name'];?></td>
                 <td><?php echo $row['district_name']."-".$row['sector_name'];?></td>
-                <td><?php echo $row['Usertype'] == "administrator"?"<a class='btn btn-success btn-sm' data-toggle='modal' href='#edit2_{$row['id']}'>set Director</a>":$row['Names'];?></td>
                 <td>
-                    <a href="#edit_<?php echo $row['id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit "></span> Edit </a>
+
+                  <?php echo $row['Usertype'] == "administrator"?"<a class='btn btn-success btn-sm' data-toggle='modal' href='#edit2_{$row['id']}'>Set Director</a>":$row['Names']."<a onclick='return confirm(\"Do you want to delete this Director?\");' href='./new_rehab.php?act=delete_dir&id={$row['id']}'> X </a>" ;?>
+                  
+
+                </td>
+                <td>
                     <a href="#delete_<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Delete </a>
                 </td>
                <?php include('./edit_delete_rehab.php'); ?>

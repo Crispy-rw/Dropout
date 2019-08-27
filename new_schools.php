@@ -11,7 +11,28 @@ if ($_SESSION['usertype']!='administrator') {
 // Define variables and initialize with empty values
 $year_err = $school_name_err = $village_name_err =  "";
 
+//  Remove director of a specific schools
+if(isset($_GET['act']) == 'delete_dir'){
 
+  $dir_id = $_GET['id'];
+
+  $dir_sql = "UPDATE schools SET `user_id` = '1' WHERE `school_id` = '{$dir_id}' ";
+
+  $update_dir = mysql_query($dir_sql) or die(mysql_error());
+
+  if ($update_dir) {
+    echo "Director Removed Successfully";
+  }else{
+    echo "Protocol Error";
+  }
+
+}
+
+
+// Remove schools
+// if ($_GET['delete_sch'] && is_numeric($_GET['sch_id'])) {
+//   $chk = mysql_query("SELECT * from students WHERE school_id = '' ") or die(mysql_error());
+// }
 
 
 //save the school information
@@ -288,13 +309,14 @@ if(isset($_POST['save_dir'])){
                 <td><?php echo $row['school_name'];?></td>
                 <td><?php echo $row['district_name']."-".$row['sector_name'];?></td>
                 <td>
-                  <?php echo $row['Usertype'] == "administrator"?"<a class='btn btn-success btn-sm' data-toggle='modal' href='#edit_{$row['school_id']}'>Set Director</a>":$row['names'];?>
+                  <?php echo $row['Usertype'] == "administrator"?"<a class='btn btn-success btn-sm' data-toggle='modal' href='#edit_{$row['school_id']}'>Set Director</a>":$row['names']."<a onclick='return confirm(\"Do you want to delete this Director?\");' href='./new_schools.php?act=delete_dir&id={$row['school_id']}'> X </a>" ;?>
                     
                   </td>
                   <?php $num = mysql_num_rows($query); ?>
                 <td><?php if($num>0){ ?><a target="_blank" href='print_1.php?school_id=<?php echo $row['school_id'] ?>&user_id=<?php echo $row['user_id'] ?>'><?php echo $num; echo " student".($num>1?"s":"") ?></a><?php } else{ echo "None";} ?></td>
-                <?php include('./add_director.php'); ?>
-          </tr>
+                <td><a href="new_schools.php?act=delete_sch&sch_id=<?php echo $row['school_id'] ?>" class="btn btn-danger btn-sm">Remove schools</a></td>   
+                <?php include('./add_director.php'); ?>             
+               </tr>
               <?php
                   }
                   
