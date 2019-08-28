@@ -29,7 +29,7 @@ $info = mysql_fetch_assoc($res);
 
 
 // Define variables and initialize with empty values
-$year_err = $ubudehe_err = $class_err = $f_name_err = $l_name_err = $gender_err = $province_name_err = $district_name_err = $sector_name_err = $cell_name_err = $village_name_err = $father_err = $mother_err = $department_name_err = $letter_err =  "";
+$year_err = $behavior_err = $ubudehe_err = $class_err = $f_name_err = $l_name_err = $gender_err = $province_name_err = $district_name_err = $sector_name_err = $cell_name_err = $village_name_err = $father_err = $mother_err = $department_name_err = $letter_err =  "";
 
 
 
@@ -49,11 +49,13 @@ if(isset($_POST['student'])){
   $Mc=$_POST['mother_contact'];
   $Village_id=$_POST['village'];
   $ubudehe = $_POST['ubudehe'];
+  $behavior = $_POST['behavior'];
 
 
   $check=mysql_query("SELECT *from students where Fname='$Name' && Lname='$Surname' && Father='$Father' && Mother='$Mother'");
   if(mysql_num_rows($check) != 1){
-    mysql_query("INSERT INTO students values(null,'$Name','$Surname','$Gender','$Father','$Fc','$Mother','$Mc','$ubudehe','$Village_id','{$_POST['class']}')")or die(mysql_error());#,'7{$_FILES['upload']['name']}')");
+    $insert = "INSERT INTO students values(null,'$Name','$Surname','$Gender','$Father','$Fc','$Mother','$Mc','$behavior','$ubudehe','$Village_id','{$_POST['class']}')";
+    mysql_query($insert)or die(mysql_error());#,'7{$_FILES['upload']['name']}')");
     #move_uploaded_file($_FILES['upload']['tmp_name'],"c:\\xampp\\htdocs\\Pro\\Profile\\".$_FILES['upload']['name']);
     $echo="New student inserted !!!";
   }else{
@@ -66,6 +68,18 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
   //var_dump($_GET);
   //var_dump($_SESSION);
   //check if the student allready left school
+
+$reason = $_POST['reason'];
+$type = $_POST['type'];
+
+
+$rea = mysql_query("INSERT INTO reason VALUES(null,'$type','$reason')");
+
+$reason_id = mysql_insert_id();
+
+echo $reason_id;die();  
+
+
   $check = mysql_query("SELECT * FROM droped WHERE student_id='{$_GET['st_id']}' && `date` = '".(date("Y-m-d",time()))."' ");
 
   if($r = mysql_fetch_assoc($check)){
@@ -290,7 +304,7 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                               <td>
 
                                 <a href="#edit_<?php echo $row['student_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit"></span> Edit </a>
-                                <a href="students.php?act=del_st&id=<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-edit"></span> Delete </a>
+                                <a href="students.php?act=del_st&id=<?php echo $row['student_id']; ?>" onclick="" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-edit"></span> Delete </a>
                                 <td>
 
                                 <?php 
@@ -303,7 +317,8 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                                 }else{
 
                                 ?>
-                                  <a href="#delete_<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Drop </a>
+                                  <a href="#edit2_<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Drop </a>
+
                                   </td>
 
                                 <?php
@@ -495,6 +510,16 @@ if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
                        <option value="4"> 4 </option>
                     </select>
                     <span class="help-block"><?php echo $ubudehe_err; ?></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="mother" class="col-sm-3 control-label"> Behavior </label>
+
+                  <div class="col-sm-9 <?php echo (!empty($behavior_err)) ? 'has-error' : ''; ?>">
+                    <textarea name="behavior" required class="form-control" maxlength="99"  placeholder="Enter Students Behavior">
+                    </textarea>
+                    <span class="help-block"><?php echo $behavior_err; ?></span>
                   </div>
                 </div>
 

@@ -70,7 +70,7 @@
                   <label for="district" class="col-sm-3 control-label"> District Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($district_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="district" required id="district" class="form-control" >
+                    <select name="district" required id="district1" class="form-control" >
                       <option value=""> - </option>
                       <?php
                        $dis=mysql_query("select * from districts ");
@@ -88,7 +88,7 @@
                   <label for="sector" class="col-sm-3 control-label"> Sector Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($sector_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="sector" required id="sector" class="form-control" >
+                    <select name="sector" required id="sector1" class="form-control" >
                       <option value=""> - </option>
                     </select>
                     <span class="help-block"><?php echo $sector_name_err; ?></span>
@@ -100,7 +100,7 @@
                   <label for="cell" class="col-sm-3 control-label"> Cell Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($cell_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="cell" required id="cell" class="form-control" >
+                    <select name="cell" required id="cell1" class="form-control" >
                       <option value=""> - </option>
                     </select>
                     <span class="help-block"><?php echo $cell_name_err; ?></span>
@@ -112,7 +112,7 @@
                   <label for="village" class="col-sm-3 control-label"> Village Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($village_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="village"  required id="village" class="form-control" >
+                    <select name="village"  required id="village1" class="form-control" >
                       <option value=""> - </option>
                     </select>
                     <span class="help-block"><?php echo $village_name_err; ?></span>
@@ -172,6 +172,14 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label for="mother" class="col-sm-3 control-label"> Behavior </label>
+
+                  <div class="col-sm-9 <?php echo (!empty($behavior_err)) ? 'has-error' : ''; ?>">
+                    <textarea name="behavior" required class="form-control"   maxlength="99" placeholder="Enter Students Behavior"><?php echo $row['behaviour'];?></textarea>
+                    <span class="help-block"><?php echo $behavior_err; ?></span>
+                  </div>
+                </div>
                 
               </div>
               <!-- /.box-body -->
@@ -194,8 +202,7 @@
 
 
 
-
-<div class="modal fade" id="delete_<?php echo $row['student_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit2_<?php echo $row['student_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -204,8 +211,33 @@
             </div>
             <div class="modal-body">	
             	<p class="text-center">Are you sure you want to Drop</p>
-				<h2 class="text-center"><?php echo $row['Fname'].' '.$row['Lname']; ?></h2>
-			</div>
+				      <h2 class="text-center"><?php echo $row['Fname'].' '.$row['Lname']; ?></h2>
+           </div>
+
+
+                <div class="form-group">
+                  <label for="ubudehe" class="col-sm-3 control-label"> Type </label>
+
+                  <div class="col-sm-9 <?php echo (!empty($ubudehe_err)) ? 'has-error' : ''; ?>">
+                    <select  name="type" class="form-control" required>
+                      <option> - </option>
+                       <option value="behavior"> behavior </option>
+                       <option value="Drug Addiction"> Drug Addiction </option>
+                       <option value="poverty"> poverty </option>
+                       <option value="prostitution"> prostitution </option>
+                    </select>
+                    <span class="help-block"><?php echo $ubudehe_err; ?></span>
+                  </div>
+                </div>
+
+               <div class="form-group">
+                  <label for="mother" class="col-sm-3 control-label"> Reason </label>
+
+                  <div class="col-sm-9 <?php echo (!empty($behavior_err)) ? 'has-error' : ''; ?>">
+                    <textarea name="reason" required class="form-control"   maxlength="99" placeholder="Enter Students Behavior">
+                    </textarea>
+                  </div>
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                 <a href="students.php?act=drop&st_id=<?php echo $row['student_id']; ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Yes</a>
