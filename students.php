@@ -29,7 +29,7 @@ $info = mysql_fetch_assoc($res);
 
 
 // Define variables and initialize with empty values
-$year_err = $behavior_err = $ubudehe_err = $class_err = $f_name_err = $l_name_err = $gender_err = $province_name_err = $district_name_err = $sector_name_err = $cell_name_err = $village_name_err = $father_err = $mother_err = $department_name_err = $letter_err =  "";
+$year_err = $type_err = $reason_err = $behavior_err = $ubudehe_err = $class_err = $f_name_err = $l_name_err = $gender_err = $province_name_err = $district_name_err = $sector_name_err = $cell_name_err = $village_name_err = $father_err = $mother_err = $department_name_err = $letter_err =  "";
 
 
 
@@ -64,7 +64,13 @@ if(isset($_POST['student'])){
 }
 
 
-if(@$_GET['act']=='drop' && is_numeric($_GET['st_id'])) {
+if(empty($_POST['reason'])) $reason_err = "Empty field";
+
+if (empty($_POST['type'])) $type_err = "Empty field";
+
+// drop student
+
+  if(@$_GET['act']=='drop' && is_numeric($_GET['st_id']) && empty($type_err) && empty($reason_err)) {
   //var_dump($_GET);
   //var_dump($_SESSION);
   //check if the student allready left school
@@ -90,6 +96,8 @@ echo $reason_id;die();
     echo  "<span class=success>Student left the school !!!</span>";
   }
 }
+
+
 
  
 ?>

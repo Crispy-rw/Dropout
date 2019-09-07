@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Edit Student </h4>
               </div>
               <div class="modal-body">
-                
+                 
                 <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
               <div class="box-body">
 
@@ -197,6 +197,7 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
+      </div>
 
 
 
@@ -214,11 +215,12 @@
 				      <h2 class="text-center"><?php echo $row['Fname'].' '.$row['Lname']; ?></h2>
            </div>
 
-
+            <form method="POST" action="students.php?act=drop&st_id=<?php echo $row['student_id']; ?>" >
+              
                 <div class="form-group">
                   <label for="ubudehe" class="col-sm-3 control-label"> Type </label>
 
-                  <div class="col-sm-9 <?php echo (!empty($ubudehe_err)) ? 'has-error' : ''; ?>">
+                  <div class="col-sm-9 <?php echo (!empty($type_err)) ? 'has-error' : ''; ?>">
                     <select  name="type" class="form-control" required>
                       <option> - </option>
                        <option value="behavior"> behavior </option>
@@ -226,22 +228,25 @@
                        <option value="poverty"> poverty </option>
                        <option value="prostitution"> prostitution </option>
                     </select>
-                    <span class="help-block"><?php echo $ubudehe_err; ?></span>
+                    <span class="help-block"><?php echo $type_err; ?></span>
                   </div>
                 </div>
 
                <div class="form-group">
                   <label for="mother" class="col-sm-3 control-label"> Reason </label>
 
-                  <div class="col-sm-9 <?php echo (!empty($behavior_err)) ? 'has-error' : ''; ?>">
-                    <textarea name="reason" required class="form-control"   maxlength="99" placeholder="Enter Students Behavior">
+                  <div class="col-sm-9 <?php echo (!empty($reason_err)) ? 'has-error' : ''; ?>">
+                    <textarea name="reason" required="/^[A-Za-z]{100}/" class="form-control"   maxlength="99" placeholder="Enter Students Behavior">
                     </textarea>
+                    <span class="help-block"><?php echo $type_err; ?></span>
                   </div>
                 </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                <a href="students.php?act=drop&st_id=<?php echo $row['student_id']; ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Yes</a>
+                <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Yes</button>
             </div>
+            </form>
+
 
         </div>
     </div>
