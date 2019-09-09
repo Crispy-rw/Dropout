@@ -267,10 +267,10 @@ if(isset($_POST['save_student'])){
                   <td>Surname</td>
                   <td>Father</td>
                   <td>Mother</td>
-                  <td>Village</td>
-                  <td>Cell</td>
-                  <td>Sector</td>
-                  <td>District</td>
+                  <td>Behavior</td>
+                  <td>Address</td>
+                  <td>type</td>
+                  <td>Dropout reason</td>
                   <td> Start date</td>
                   <td> End date</td>
                   <td>Operation</td>
@@ -279,7 +279,7 @@ if(isset($_POST['save_student'])){
                 <tbody>
                   <?php
                        $drops = array();
-                       $sq=mysql_query($s ="SELECT `transfer`.*,`students`.*,villages.villagename,cells.cellname,sector.sector_name, districts.district_name FROM `transfer`,`droped`,`students`, `villages`, `cells`, `sector`, `districts` WHERE transfer.status = 0 && transfer.rehab_id = '{$_SESSION['rehab_id']}' && transfer.drop_id = droped.droped_id && droped.student_id = students.student_id && students.village_id = villages.village_id && villages.cell_id = cells.cell_id && cells.sector_id = sector.sector_id && sector.district_id = districts.district_id")or die(mysql_error());
+                       $sq=mysql_query($s ="SELECT `reason`.*,`transfer`.*,`students`.*,villages.villagename,cells.cellname,sector.sector_name, districts.district_name FROM `reason`,`transfer`,`droped`,`students`, `villages`, `cells`, `sector`, `districts` WHERE droped.reason_id = reason.reason_id && transfer.status = 0 && transfer.rehab_id = '{$_SESSION['rehab_id']}' && transfer.drop_id = droped.droped_id && droped.student_id = students.student_id && students.village_id = villages.village_id && villages.cell_id = cells.cell_id && cells.sector_id = sector.sector_id && sector.district_id = districts.district_id")or die(mysql_error());
                           while($row=mysql_fetch_assoc($sq))
                                 $drops[] = $row;
 
@@ -293,10 +293,10 @@ if(isset($_POST['save_student'])){
                               <td><?php echo $row['Lname'];?></td>
                               <td><?php echo $row['Father'];?></td>
                               <td><?php echo $row['Mother'];?></td>
-                              <td><?php echo $row['villagename'];?></td>
-                              <td><?php echo $row['cellname'];?></td>
-                              <td><?php echo $row['sector_name'];?></td>
-                              <td><?php echo $row['district_name'];?></td>
+                              <td><?php echo $row['behaviour'];?></td>
+                              <td><?php echo $row['district_name']."-".$row['sector_name'];?></td>
+                              <td><?php echo $row['type'];?></td>
+                              <td><?php echo $row['comment'];?></td>
                               <td><?php echo $row['start_date'];?></td>                              
                               <td><?php echo $row['end_date'];?></td>                                                            
                               <td><a href="#delete_<?php echo $row['transfer_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit "></span> Send Back to school </a></td>

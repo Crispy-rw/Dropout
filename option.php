@@ -326,7 +326,7 @@ if(isset($_POST['update'])){
                   <label for="inputEmail3" class="col-sm-3 control-label"> Combination Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($option_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="comb" class="form-control"  placeholder="Combination Name">
+                    <input type="text" required pattern="[A-Za-z -]{3,30}" name="comb" class="form-control"  placeholder="Combination Name">
                     <span class="help-block"><?php echo $option_name_err; ?></span>
                   </div>
                 </div> 
@@ -335,7 +335,7 @@ if(isset($_POST['update'])){
                   <label for="inputEmail3" class="col-sm-3 control-label"> Combination Code </label>
 
                   <div class="col-sm-9 <?php echo (!empty($option_code_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="acro" class="form-control"  placeholder="Combination Code">
+                    <input type="text" required pattern="[A-Z]{2,6}" name="acro" class="form-control"  placeholder="Combination Code">
                     <span class="help-block"><?php echo $option_code_err; ?></span>
                   </div>
               </div>

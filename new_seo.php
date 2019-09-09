@@ -234,7 +234,6 @@ if(isset($_POST['save_seo'])){
                   <td>Location</td>
                   <td>SEO</td>
                   <td># of Schools</td>
-                  <td colspan="2">Operations</td>
                 </tr>
                 </thead>
                 <tbody>

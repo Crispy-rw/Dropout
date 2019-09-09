@@ -232,10 +232,7 @@ if(isset($_POST['save_student'])){
 
         <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Department Features </h3>
-              <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">
-                <i class="fa fa-plus"> </i> Add Class
-              </button>
+              <h3 class="box-title">Student Request </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -246,6 +243,7 @@ if(isset($_POST['save_student'])){
                   <th>#</th>
                   <td>Name</td>
                   <td>Surname</td>
+                  <td>Behavior</td>
                   <td>Father</td>
                   <td>Mother</td>
                   <td>Village</td>
@@ -282,6 +280,7 @@ if(isset($_POST['save_student'])){
                               <td><?php echo $row['Fname'];?></td>
                               <td><?php echo $row['Lname'];?></td>
                               <td><?php echo $row['Father'];?></td>
+                              <td><?php echo $row['behaviour'];?></td>
                               <td><?php echo $row['Mother'];?></td>
                               <td><?php echo $row['villagename'];?></td>
                               <td><?php echo $row['cellname'];?></td>

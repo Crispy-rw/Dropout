@@ -6,7 +6,26 @@ if ($_SESSION['usertype']!='user') {
   header("location:./logout.php");
   exit();
 }
- 
+
+
+if (isset($_GET['del_st']) && is_numeric($_GET['id'])) {
+
+    $del = mysql_query("DELETE from students WHERE `student_id` = '{$_GET['id']}'") or die("Unable to delete student");
+
+    echo "<script>alert('Student deleted successfully')</script>";
+
+}
+
+// Delete Student
+if (isset($_POST['update_student'])) {
+
+$query = "UPDATE students SET `Fname` = '{$_POST['fname']}',`Lname`='{$_POST['lname']}',`Gender`='{$_POST['gender']}',`Father`='{$_POST['father']}',`Fathercontact`='{$_POST['father_contact']}',`Mother`='{$_POST['mother']}',`Mothercontact`='{$_POST['mother_contact']}',`behaviour` = '{$_POST['behavior']}',`class_id` = '{$_POST['class']}',`ubudehe`='{$_POST['ubudehe']}' WHERE `student_id` = '{$_GET['update_id']}' ";
+
+$update_student_save = mysql_query($query) or die(mysql_error()."Unable to update");
+
+echo  "<script>alert('Student Updated')</script>";
+
+} 
 
  
 //FInd school imformation
@@ -83,7 +102,7 @@ $rea = mysql_query("INSERT INTO reason VALUES(null,'$type','$reason')");
 
 $reason_id = mysql_insert_id();
 
-echo $reason_id;die();  
+// echo $reason_id;die();  
 
 
   $check = mysql_query("SELECT * FROM droped WHERE student_id='{$_GET['st_id']}' && `date` = '".(date("Y-m-d",time()))."' ");
@@ -92,7 +111,7 @@ echo $reason_id;die();
     mysql_query("UPDATE droped SET`date`='".(date("Y-m-d",time()))."', status=1, user_id='{$_SESSION['user_id']}' WHERE droped_id='{$r['droped_id']}'");
     echo "<span class=success>Student Left the School Again !!!</span>";
   } else{
-    mysql_query("INSERT INTO droped SET student_id='{$_GET['st_id']}', `date`=NOW(), status=1, user_id='{$_SESSION['user_id']}'");
+    mysql_query("INSERT INTO droped SET student_id='{$_GET['st_id']}',`reason_id` = {$reason_id}, `date`=NOW(), status=1, user_id='{$_SESSION['user_id']}'");
     echo  "<span class=success>Student left the school !!!</span>";
   }
 }
@@ -285,6 +304,8 @@ echo $reason_id;die();
                   <th>Class</th>
                   <th>Father</th>
                   <th>Mother</th>
+                  <th>Ubudehe</th>
+                  <th>Behavior</th>
                   <th>Action</th>
                   <th>Operation</th>
                 </tr>
@@ -308,7 +329,9 @@ echo $reason_id;die();
                               <td><?php echo htmlentities($row['Gender']); ?></td>
                               <td><?php echo 'S'.$row['year'].' '.$row['deptacronym'];?></td>
                               <td><?php echo htmlentities($row['Father']); ?></td>                              
-                              <td><?php echo htmlentities($row['Mother']); ?></td>                              
+                              <td><?php echo htmlentities($row['Mother']); ?></td>
+                              <td><?php echo htmlentities($row['ubudehe']); ?></td>
+                              <td><?php echo htmlentities($row['behaviour']); ?></td>                             
                               <td>
 
                                 <a href="#edit_<?php echo $row['student_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit"></span> Edit </a>
@@ -320,7 +343,7 @@ echo $reason_id;die();
 
                                 if(mysql_num_rows($st) > 0){
                                   ?>
-                                   <a class="btn btn-danger btn-sm" data-toggle="modal"><span class="fa fa-trash"></span> Droped </a>
+                                   <a class="btn btn-danger btn-sm" style="pointer-events: none;" data-toggle="modal"><span class="fa fa-trash"></span> Droped </a>
                                   <?php
                                 }else{
 
@@ -386,7 +409,7 @@ echo $reason_id;die();
                   <label for="fname" class="col-sm-3 control-label"> First Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($f_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="fname" required class="form-control"  placeholder="First Name">
+                    <input type="text" name="fname"pattern="[A-Za-z ]{3,30}" required class="form-control"  placeholder="First Name">
                     <span class="help-block"><?php echo $f_name_err; ?></span>
                   </div>
                 </div>
@@ -395,7 +418,7 @@ echo $reason_id;die();
                   <label for="lname" class="col-sm-3 control-label"> Last Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($l_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="lname" required class="form-control"  placeholder="Last Name">
+                    <input type="text" name="lname" required pattern="[A-Za-z ]{3,30}" class="form-control"  placeholder="Last Name">
                     <span class="help-block"><?php echo $l_name_err; ?></span>
                   </div>
                 </div>
@@ -472,7 +495,7 @@ echo $reason_id;die();
                   <label for="father" class="col-sm-3 control-label"> Father </label>
 
                   <div class="col-sm-9 <?php echo (!empty($father_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="father" required class="form-control"  placeholder="father">
+                    <input type="text" name="father" pattern="[A-Za-z ]{3,30}" required class="form-control"  placeholder="father">
                     <span class="help-block"><?php echo $father_err; ?></span>
                   </div>
                 </div>
@@ -481,7 +504,7 @@ echo $reason_id;die();
                   <label for="father" class="col-sm-3 control-label"> Father Contact </label>
 
                   <div class="col-sm-9 <?php echo (!empty($f_contact_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="father_contact" required class="form-control"  placeholder="father Contact">
+                    <input type="text" name="father_contact" required pattern="^07[2,3,8]{1}[0-9]{7}" class="form-control"  placeholder="father Contact">
                     <span class="help-block"><?php echo $father_err; ?></span>
                   </div>
                 </div>
@@ -491,7 +514,7 @@ echo $reason_id;die();
                   <label for="mother" class="col-sm-3 control-label"> Mother </label>
 
                   <div class="col-sm-9 <?php echo (!empty($mother_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="mother" required class="form-control"  placeholder="mother">
+                    <input type="text" name="mother" required pattern="[A-Za-z ]{3,30}" class="form-control"  placeholder="mother">
                     <span class="help-block"><?php echo $mother_err; ?></span>
                   </div>
                 </div>
@@ -501,7 +524,7 @@ echo $reason_id;die();
                   <label for="mother" class="col-sm-3 control-label"> Mother Contact </label>
 
                   <div class="col-sm-9 <?php echo (!empty($mother_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" name="mother_contact" required class="form-control"  placeholder="mother">
+                    <input type="text" name="mother_contact" required pattern="^07[2,3,8]{1}[0-9]{7}" class="form-control"  placeholder="mother">
                     <span class="help-block"><?php echo $mother_err; ?></span>
                   </div>
                 </div>
@@ -510,8 +533,8 @@ echo $reason_id;die();
                   <label for="ubudehe" class="col-sm-3 control-label"> UBUDEHE </label>
 
                   <div class="col-sm-9 <?php echo (!empty($ubudehe_err)) ? 'has-error' : ''; ?>">
-                    <select  name="ubudehe" class="form-control"  required>
-                      <option> - </option>
+                    <select  name="ubudehe" required class="form-control"  required>
+                      <option value=""> - </option>
                        <option value="1"> 1 </option>
                        <option value="2"> 2 </option>
                        <option value="3"> 3 </option>

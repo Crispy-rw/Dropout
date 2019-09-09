@@ -69,7 +69,7 @@
                         <label class="control-label" style="position:relative; top:7px;"> Names :</label>
                     </div>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="name" value="<?php echo @$_POST['name']; ?>">
+                        <input type="text" required pattern="[A-Za-z]{2,10}" class="form-control" name="name" value="<?php echo @$_POST['name']; ?>">
                     </div>
                 </div>
 
@@ -78,7 +78,7 @@
                         <label class="control-label" style="position:relative; top:7px;"> Phone no :</label>
                     </div>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="phone" value="<?php echo @$_POST['phone']; ?>">
+                        <input type="text" required pattern="^07[2,3,8]{1}[0-9]{7}" class="form-control" name="phone" value="<?php echo @$_POST['phone']; ?>">
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
                         <label class="control-label" style="position:relative; top:7px;"> Identity no :</label>
                     </div>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="id" value="<?php echo @$_POST['id']; ?>">
+                        <input type="text" required pattern="[0-9]{16}" class="form-control" name="id" value="<?php echo @$_POST['id']; ?>">
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@
                         <label class="control-label" style="position:relative; top:7px;"> Username :</label>
                     </div>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="user" value="<?php echo @$_POST['user']; ?>">
+                        <input type="text" class="form-control" required pattern="[a-z]{2,10}" name="user" value="<?php echo @$_POST['user']; ?>">
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@
                         <label class="control-label" style="position:relative; top:7px;"> Password :</label>
                     </div>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control" name="pass" value="<?php echo @$_POST['pass']; ?>">
+                        <input type="password" class="form-control" required name="pass" value="<?php echo @$_POST['pass']; ?>">
                     </div>
                 </div>
                 

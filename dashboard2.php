@@ -199,7 +199,7 @@ mysql_select_db("mine");
               echo "<h3>" . mysql_num_rows($data) . "</h3>";
 
               ?>
-              <p>Students</p>
+              <p>Classes</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>

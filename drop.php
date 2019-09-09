@@ -8,7 +8,7 @@
               </div>
               <div class="modal-body">
                  
-                <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <form class="form-horizontal" action="students.php?update_id=<?php echo $row['student_id'];?>" method="POST">
               <div class="box-body">
 
                 <div class="form-group">
@@ -64,60 +64,6 @@
                     <span class="help-block"><?php echo $gender_err; ?></span>
                   </div>
                 </div>                
- 
-
-                <div class="form-group">
-                  <label for="district" class="col-sm-3 control-label"> District Name </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($district_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="district" required id="district1" class="form-control" >
-                      <option value=""> - </option>
-                      <?php
-                       $dis=mysql_query("select * from districts ");
-                       while($res2=mysql_fetch_assoc($dis)){
-                          echo "<option value='{$res2['district_id']}'>".$res2['district_name']."</option>";
-                       }
-                     ?>
-                    </select>
-                    <span class="help-block"><?php echo $district_name_err; ?></span>
-                  </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label for="sector" class="col-sm-3 control-label"> Sector Name </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($sector_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="sector" required id="sector1" class="form-control" >
-                      <option value=""> - </option>
-                    </select>
-                    <span class="help-block"><?php echo $sector_name_err; ?></span>
-                  </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label for="cell" class="col-sm-3 control-label"> Cell Name </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($cell_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="cell" required id="cell1" class="form-control" >
-                      <option value=""> - </option>
-                    </select>
-                    <span class="help-block"><?php echo $cell_name_err; ?></span>
-                  </div>
-                </div>                
-
-
-                <div class="form-group">
-                  <label for="village" class="col-sm-3 control-label"> Village Name </label>
-
-                  <div class="col-sm-9 <?php echo (!empty($village_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="village"  required id="village1" class="form-control" >
-                      <option value=""> - </option>
-                    </select>
-                    <span class="help-block"><?php echo $village_name_err; ?></span>
-                  </div>
-                </div>
 
                 <div class="form-group">
                   <label for="father" class="col-sm-3 control-label"> Father </label>
@@ -161,8 +107,8 @@
                   <label for="ubudehe" class="col-sm-3 control-label"> UBUDEHE </label>
 
                   <div class="col-sm-9 <?php echo (!empty($ubudehe_err)) ? 'has-error' : ''; ?>">
-                    <select  name="ubudehe" class="form-control"  required>
-                      <option> - </option>
+                    <select  name="ubudehe" required class="form-control"  required>
+                      <option value=""> - </option>
                        <option <?php echo ($row['ubudehe'] == '1')?'selected':'' ?> value="1"> 1 </option>
                        <option <?php echo ($row['ubudehe'] == '2')?'selected':'' ?> value="2"> 2 </option>
                        <option <?php echo ($row['ubudehe'] == '3')?'selected':'' ?> value="3"> 3 </option>
@@ -176,7 +122,7 @@
                   <label for="mother" class="col-sm-3 control-label"> Behavior </label>
 
                   <div class="col-sm-9 <?php echo (!empty($behavior_err)) ? 'has-error' : ''; ?>">
-                    <textarea name="behavior" required class="form-control"   maxlength="99" placeholder="Enter Students Behavior"><?php echo $row['behaviour'];?></textarea>
+                    <textarea name="behavior" required  class="form-control"   maxlength="99" placeholder="Enter Students Behavior"><?php echo trim($row['behaviour']);?></textarea>
                     <span class="help-block"><?php echo $behavior_err; ?></span>
                   </div>
                 </div>
@@ -185,7 +131,7 @@
               <!-- /.box-body -->
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-                <button type="submit" name="student" class="btn btn-info pull-right">Save</button>
+                <button type="submit" name="update_student" class="btn btn-info pull-right">Save</button>
               </div>
               <!-- /.box-footer -->
             </form>

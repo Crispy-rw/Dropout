@@ -156,6 +156,15 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["usertype"] != 'administrator'){
             <i class="fa fa-edit"></i> <span>Sector Education Officer</span>
           </a>
         </li>
+
+        <li>
+          <a href="users.php">
+            <i class="fa fa-edit"></i> <span>Users</span>
+          </a>
+        </li>
+
+        
+
       
         <li class="header">Setting</li>
         <li><a href="#"><i class="fa fa-cogs text-red"></i> <span>Account Setting</span></a></li>
@@ -187,7 +196,7 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["usertype"] != 'administrator'){
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3> _ _ _ </h3>
+              <h3> 3 </h3>
 
               <p>Students</p>
             </div>

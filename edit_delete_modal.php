@@ -14,7 +14,7 @@
 						<label class="control-label" style="position:relative; top:7px;">Combination name:</label>
 					</div>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" name="comb" value="<?php echo $row['deptname']; ?>"/>
+						<input type="text" required pattern="[A-Za-z ]{3,20}" class="form-control" name="comb" value="<?php echo $row['deptname']; ?>"/>
 					</div>
 				</div>
 				<div class="row form-group">
@@ -22,7 +22,7 @@
 						<label class="control-label" style="position:relative; top:7px;">Combination code:</label>
 					</div>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" name="acro" value="<?php echo $row['deptacronym']; ?>">
+						<input type="text" required pattern="[A-Z]{2,6}" class="form-control" name="acro" value="<?php echo $row['deptacronym']; ?>">
 					</div>
 				</div>
 				

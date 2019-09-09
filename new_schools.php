@@ -369,7 +369,7 @@ if(isset($_POST['save_dir'])){
                   <label for="school_name" class="col-sm-3 control-label"> School name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($school_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" class="form-control" name="school_name">
+                    <input type="text" required pattern="[A-Za-z ]{1,15}" class="form-control" name="school_name">
                     <span class="help-block"><?php echo $school_name_err; ?></span>
                   </div>
               </div>

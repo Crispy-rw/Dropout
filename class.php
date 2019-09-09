@@ -325,7 +325,7 @@ if(isset($_POST['save_class'])){
                   <label for="departments" class="col-sm-3 control-label"> Department Name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($department_name_err)) ? 'has-error' : ''; ?>">
-                    <select name="departments" class="form-control" >
+                    <select name="departments" required class="form-control" >
                       <option value=""> - </option>
                       <?php
                        $dept=mysql_query("select * from depts where school_id='{$_SESSION['school_id']}'");
@@ -343,7 +343,7 @@ if(isset($_POST['save_class'])){
                   <label for="year" class="col-sm-3 control-label"> Year </label>
 
                   <div class="col-sm-9 <?php echo (!empty($year_err)) ? 'has-error' : ''; ?>">
-                    <select name="year" class="form-control"  placeholder="Combination Code">
+                    <select name="year" required class="form-control"  placeholder="Combination Code">
                       <option value=""> - </option>
                       <option value="1">1</option>
                       <option value="2">2</option>
