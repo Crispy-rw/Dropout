@@ -191,7 +191,11 @@ if(isset($_POST['save_seo'])){
           </a>
         </li>       
     
-
+        <li>
+          <a href="users.php">
+            <i class="fa fa-edit"></i> <span>Users</span>
+          </a>
+        </li>
       
         <li class="header">Setting</li>
         <li><a href="#"><i class="fa fa-cogs text-red"></i> <span>Account Setting</span></a></li>

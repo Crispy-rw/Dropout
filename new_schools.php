@@ -236,6 +236,11 @@ if(isset($_POST['save_dir'])){
             <i class="fa fa-edit"></i> <span>Sector Education Officer</span>
           </a>
         </li>
+        <li>
+          <a href="users.php">
+            <i class="fa fa-edit"></i> <span>Users</span>
+          </a>
+        </li>
       
         <li class="header">Setting</li>
         <li><a href="#"><i class="fa fa-cogs text-red"></i> <span>Account Setting</span></a></li>
@@ -314,7 +319,7 @@ if(isset($_POST['save_dir'])){
                   </td>
                   <?php $num = mysql_num_rows($query); ?>
                 <td><?php if($num>0){ ?><a target="_blank" href='print_1.php?school_id=<?php echo $row['school_id'] ?>&user_id=<?php echo $row['user_id'] ?>'><?php echo $num; echo " student".($num>1?"s":"") ?></a><?php } else{ echo "None";} ?></td>
-                <td><a href="new_schools.php?act=delete_sch&sch_id=<?php echo $row['school_id'] ?>" class="btn btn-danger btn-sm">Remove schools</a></td>   
+                <!-- <td><a href="new_schools.php?act=delete_sch&sch_id=<?php echo $row['school_id'] ?>" class="btn btn-danger btn-sm">Remove schools</a></td> -->   
                 <?php include('./add_director.php'); ?>             
                </tr>
               <?php
