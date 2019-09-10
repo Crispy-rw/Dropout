@@ -2,32 +2,21 @@
 session_start();
 include "connect.php";
  
-				$sq=mysql_query($s = "SELECT schools.*, droped.*,students.*,depts.deptacronym, classes.year, classes.letter, classes.class_id,villages.villagename,cells.cellname,sector.sector_name,districts.district_name 
-								FROM droped, students, villages, cells,sector,districts, classes, depts, schools WHERE 
-								droped.student_id=students.student_id && 
-								students.village_id=villages.village_id && 
-								villages.cell_id=cells.cell_id && 
-								cells.sector_id=sector.sector_id && 
-								students.class_id = classes.class_id &&
-								classes.dept_id = depts.dept_id &&
-								depts.school_id = schools.school_id &&
-								droped.status = 1 &&
-								sector.district_id=districts.district_id")or die(mysql_error());
-				$students = array();
-				while($row=mysql_fetch_assoc($sq))
-				//echo $s;
-					$students[] = $row;
+
 				//select school identification
-				$school_query = "SELECT DISTINCT `schools`.*, `villages`.`villagename`, `cells`.`cellname`, `sector`.`sector_name`, `districts`.`district_name`
-								 FROM `schools`, `villages`, `cells`, `sector`, `districts` WHERE 
-								 `schools`.`village_id`=`villages`.`village_id` && 
+				$school_query = "
+
+				SELECT DISTINCT `villages`.`villagename`, `cells`.`cellname`, `sector`.*,`districts`.`district_name`
+								 FROM `villages`, `cells`, `sector`,`districts` WHERE 
 								 `villages`.`cell_id`=`cells`.`cell_id` && 
 								 `cells`.`sector_id`=`sector`.`sector_id` && 
-								 `sector`.`district_id`=`districts`.`district_id`&&
-								 `sector`.`user_id` = {$_SESSION['user_id']}";
-								 //echo $school_query;
-				$school = mysql_query($school_query);
+                                 `sector`.`user_id` = '{$_SESSION['user_id']}' && `sector`.`district_id` = `districts`.`district_id`
+
+				";
+								 // echo $school_query;
+				$school = mysql_query($school_query) or die(mysql_error());
 				$sc = mysql_fetch_assoc($school);
+				// var_dump($sc);
 				$year = date("Y",time());
 				//select information of school
 				// $school_id_query = mysql_query("SELECT * FROM schools WHERE school_id='{$_SESSION['school_id']}'");
@@ -38,17 +27,47 @@ include "connect.php";
 				$head = mysql_query("SELECT * FROM users WHERE user_id='{$_SESSION['user_id']}'");
 				$head_ = mysql_fetch_assoc($head);
 				$tb = "
-District:{$sc['district_name']}<br />
-Sector:{$sc['sector_name']}<br />
-Cell:{$sc['cellname']}<br />
-Village:{$sc['villagename']}<br /><br />
+                 District:{$sc['district_name']}<br />
+                 Sector:{$sc['sector_name']}<br />
+                 Cell:{$sc['cellname']}<br />
+                 Village:{$sc['villagename']}<br /><br />
 <div style='text-align:center; text-decoration:underline;'>Students who drop school in {$year}</div><br /><table border=1 style='border-collapse:collapse' width=100% cellspacing=0>";
+
+// $s = "SELECT schools.*, droped.*,students.*,depts.deptacronym, classes.year, classes.letter, classes.class_id,villages.villagename,cells.cellname,sector.sector_name,districts.district_name 
+// 									FROM droped, students, villages, cells,sector,districts, classes, depts, schools WHERE 
+// 									droped.student_id=students.student_id && 
+// 									students.village_id=villages.village_id && 
+// 									villages.cell_id=cells.cell_id && 
+// 									cells.sector_id=sector.sector_id && 
+// 									students.class_id = classes.class_id &&
+// 									classes.dept_id = depts.dept_id &&
+// 									depts.school_id = schools.school_id &&
+// 									droped.status = 1 &&
+// 									sector.district_id=districts.district_id"
+
+$se = "SELECT DISTINCT schools.*, droped.*,students.*,depts.deptacronym, classes.year, classes.letter, classes.class_id,villages.villagename,cells.cellname,sector.sector_name,districts.district_name FROM villages,cells,sector,districts,schools,depts,students,classes,droped WHERE 
+                                                                     schools.village_id = villages.village_id && 
+													                 villages.cell_id = cells.cell_id &&
+                                                                     cells.sector_id = sector.sector_id &&
+                                                                     `sector`.`user_id` = '{$_SESSION['user_id']}' &&
+                                                                     sector.district_id = districts.district_id &&
+                                                                     schools.school_id = depts.school_id &&
+                                                                     classes.dept_id = depts.dept_id &&
+                                                                     students.class_id = classes.class_id &&
+                                                                	 droped.student_id=students.student_id && 
+                                                                     droped.status = '1'";
+
+					$sq=mysql_query($se)or die(mysql_error());
+				$students = array();
+				while($row=mysql_fetch_assoc($sq))
+				//echo $s;
+					$students[] = $row;
 	
 	$count = 1;
 				for($i=0;$i<count($students);$i++){
 
 					if($i==0 || $students[$i]["school_id"] != @$students[($i-1)]["school_id"] ){
-						$tb .= "<tr><td colspan=10>". $students[$i]["school_name"] ."</td></tr><tr><th>No</th><th>Name</th><th>Surname</th><th>Father</th><th>Mother</th><th>Village</th><th>Cell</th><th>Sector</th><th>District</th><th>Date</th></tr>";
+						$tb .= "<tr><td colspan=10>". $students[$i]["school_name"] ."</td></tr>";
 						$count = 1;
 					}					
 

@@ -95,6 +95,12 @@ if(isset($_POST['save_student'])){
 }
 
 
+if (isset($_POST['extend_date'])) {
+die();
+} else {
+  # code...
+}
+
 
  
 ?>
@@ -273,7 +279,7 @@ if(isset($_POST['save_student'])){
                   <td>Dropout reason</td>
                   <td> Start date</td>
                   <td> End date</td>
-                  <td>Operation</td>
+                  <td colspan="2" >Operation</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -298,10 +304,12 @@ if(isset($_POST['save_student'])){
                               <td><?php echo $row['type'];?></td>
                               <td><?php echo $row['comment'];?></td>
                               <td><?php echo $row['start_date'];?></td>                              
-                              <td><?php echo $row['end_date'];?></td>                                                            
+                              <td><?php echo $row['end_date'];?></td>
+                        <!--       <td><a href="#edit_<?php echo $row['transfer_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit "></span> Extend date </a></td> -->                                                            
                               <td><a href="#delete_<?php echo $row['transfer_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="fa fa-edit "></span> Send Back to school </a></td>
                               <?php
                               include('./back.php');
+                              include('./extend_request.php');
                               ?>
                             </tr>
                             <?php 

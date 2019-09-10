@@ -371,8 +371,6 @@ if(mysql_num_rows($check) == 0 ){
                     <select name="sector_id" class="form-control" >
                       <option value=""> - </option>
                       <?php
-
-
                         $query = "SELECT * from sector ";
                         #echo $query;
                         $cells = mysql_query($query);
@@ -394,7 +392,7 @@ if(mysql_num_rows($check) == 0 ){
                   <label for="school_name" class="col-sm-3 control-label"> Rehabilitation name </label>
 
                   <div class="col-sm-9 <?php echo (!empty($rehab_name_err)) ? 'has-error' : ''; ?>">
-                    <input type="text" required pattern="[A-Za-z]{2,10}"  class="form-control" name="rehab">
+                    <input type="text" required pattern="[A-Za-z ]{2,30}"  class="form-control" name="rehab">
                     <span class="help-block"><?php echo $rehab_name_err; ?></span>
                   </div>
               </div>
