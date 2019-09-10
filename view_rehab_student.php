@@ -16,7 +16,7 @@ if(isset($_GET['tid'])){
 
   if($res1){
 
-      $res = mysql_query("UPDATE transfer SET status = 1 WHERE transfer_id = {$_GET['tid']}");
+      $res = mysql_query("UPDATE transfer SET `status` = 1,`comment` = '{$_POST['comment']}' WHERE transfer_id = {$_GET['tid']}");
 
       if($res){
 

@@ -48,21 +48,21 @@ if(@$_GET['act']=='delete_class' && is_numeric($_GET['id'])){
 
 if(isset($_POST['save_student'])){
 
-
-
-
-
   $start=$_POST['start'];
   $end=$_POST['end'];
   $drop_id=$_GET['drop_id'];
   // var_dump($_REQUEST); die;
   
     //seacrh dept for comparison
-  $dept_query = mysql_query("INSERT INTO transfer VALUES(null,'$drop_id','$start','$end','{$_SESSION['rehab_id']}',0)");
+  $dept_query = mysql_query("INSERT INTO transfer VALUES(null,'$drop_id','$start','$end',null,'{$_SESSION['rehab_id']}',0)");
 
   if($dept_query){
    
    echo "Student Reveived";
+
+  }else{
+
+    echo "Protocol Error";
 
   } 
 
