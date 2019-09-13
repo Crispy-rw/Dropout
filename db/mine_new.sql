@@ -331,6 +331,7 @@ CREATE TABLE `transfer` (
   `drop_id` int(10) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
+  `comment` varchar(10) NULL,
   `rehab_id` int(10) NOT NULL,
   `status` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
